@@ -11,7 +11,7 @@ enum boxTypes {
     YELLOW,
     RED,
     PLAYER = 9,
-    PROJECTILE = -1
+    PROJECTILE
 };
 
 

@@ -4,8 +4,8 @@
 
 Invasion::Invasion(cv::VideoCapture cap) : _cap(cap)
 {
-    int _width = _cap.get(cv::CAP_PROP_FRAME_WIDTH);
-    int _height = _cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+    _width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+    _height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 }
 
 
@@ -66,7 +66,8 @@ void Invasion::runGame()
 
         // Handling paddle movement
         cv::Point point1 = coord(frame, player1);
-        movedPlayer(point1.x);
+        int point1X = point1.x;
+        movedPlayer(point1X);
         cv::Point point2 = coord(frame, player2);
         
         
@@ -135,12 +136,13 @@ void Invasion::creatBoxes(cv::Point point, int boxType)
 
 }
 
-void Invasion::movedPlayer(int &x)
+void Invasion::movedPlayer(int x)
 {
+    int recalculated = (x - _width * 0.25) * WINDOW_PARAMETER / (_width * 0.25);
     _gameTable[TABLE_SIZE - 2][_playerX - 1] = BLANK;
     _gameTable[TABLE_SIZE - 2][_playerX] = BLANK;
     _gameTable[TABLE_SIZE - 2][_playerX + 1] = BLANK;
-    int newPosition = x / (TABLE_SIZE - 1);
+    int newPosition = recalculated / (TABLE_SIZE - 1);
     
     if(newPosition < 0) {
         newPosition = 0;

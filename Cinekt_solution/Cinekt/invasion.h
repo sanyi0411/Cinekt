@@ -6,7 +6,7 @@
 #include <vector>
 #include <time.h>
 
-#define TABLE_SIZE 101
+#define TABLE_SIZE 26
 #define RECTANGLE_PARAMETER 20
 #define WINDOW_PARAMETER 500
 
@@ -38,7 +38,7 @@ public:
     void creatBoxes(cv::Point point, int boxType);
     void creatProjectile();
 
-    void movedPlayer(int &x);
+    void movedPlayer(int x);
     void movedProjectile();
     void movedBoxes();
     
@@ -51,7 +51,7 @@ private:
     cv::VideoCapture _cap;
     int _width;
     int _height;
-    int _playerX = WINDOW_PARAMETER / 2;
+    int _playerX = TABLE_SIZE / 2;
     std::vector<std::vector<int>> _projectilePoint;
 };
 

@@ -6,6 +6,7 @@
 #pragma comment(lib, "WinMM.Lib")
 #include "objectTracking.h"
 #include "invasion.h"
+#include <time.h>
 
 //DELET this
 
@@ -18,16 +19,10 @@ void MouseCallBackFunc(int event, int x, int y, int flag, void *userdata)
 {
     if(flag & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
         inv.movedPlayer(x);
-        show = inv.creatGameTable();
-        cv::imshow("show", show);
     }
 
     if(flag & cv::MouseEventFlags::EVENT_FLAG_RBUTTON) {
         inv.creatProjectile();
-        cv::waitKey(60);
-        inv.movedProjectile();
-        cv::waitKey(60);
-        inv.movedBoxes();
     }
 }
 
@@ -73,8 +68,21 @@ void main()
 
     bool run = true;
 
+    clock_t projectileBegin = clock();
+    clock_t boxBegin = clock();
+
+
     while (run) {
-       
+        clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
+        clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
+        if (projectileClock >= 0.5) {
+            inv.movedProjectile();
+            projectileBegin = clock();
+        }
+        if (boxClock >= 3.0) {
+            inv.movedBoxes();
+            boxBegin = clock();
+        }
         show = inv.creatGameTable();
         cv::imshow("show", show);
         cv::setMouseCallback("show", MouseCallBackFunc);

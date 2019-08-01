@@ -5,10 +5,10 @@
 #include <mmsystem.h>
 #pragma comment(lib, "WinMM.Lib")
 #include "objectTracking.h"
+#include "invasion.h"
 
 void main()
 {
-
     cv::VideoCapture cap(0);
 
     if (!cap.isOpened()) {
@@ -16,7 +16,7 @@ void main()
         return;
     }
 
-    cap.set(cv::CAP_PROP_FRAME_WIDTH, 2000);
+    /*cap.set(cv::CAP_PROP_FRAME_WIDTH, 2000);
     cap.set(cv::CAP_PROP_FRAME_HEIGHT, 2000);
 
     cv::Mat frame;
@@ -39,5 +39,14 @@ void main()
         }
 
         cv::waitKey(16);
-    }
+    }*/
+
+    Invasion inv(cap);
+    std::vector<std::vector<boxTypes>> box = inv.createStartTable();
+    cv::Mat show;
+    show = inv.creatGameTable(&box);
+    cv::imshow("show", show);
+    cv::waitKey(0);
+
+
 }

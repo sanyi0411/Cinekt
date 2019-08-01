@@ -23,6 +23,8 @@ std::vector<std::vector<boxTypes>> Invasion::createStartTable()
                 startTable[i].push_back(GREEN);
             } else if (i > 19 || i == 19 && j >= 9 && j <= 11) {
                 startTable[i].push_back(PLAYER);
+            } else {
+                startTable[i].push_back(BLANK);
             }
         }
     }
@@ -52,7 +54,7 @@ cv::Mat Invasion::creatGameTable(std::vector<std::vector<boxTypes>> &gameTable)
             }
         }
     }
-
+    return gameTableMat;
 }
 
 void Invasion::creatBoxes(cv::Point point, int boxType)

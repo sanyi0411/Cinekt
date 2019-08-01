@@ -6,7 +6,7 @@
 #include <vector>
 
 enum boxTypes {
-    VOID,
+    BLANK,
     GREEN,
     YELLOW,
     RED,

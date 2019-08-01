@@ -11,7 +11,7 @@ enum boxTypes {
     YELLOW,
     RED,
     PLAYER = 9,
-    PROJECTILE
+    PROJECTILE = -1
 };
 
 
@@ -21,12 +21,17 @@ public:
     Invasion(cv::VideoCapture cap);
     ~Invasion();
 
+    void setGameTable(std::vector<std::vector<boxTypes>> &gameTable);
+    std::vector<std::vector<boxTypes>> getGameTable();
+
     std::vector<std::vector<boxTypes>> createStartTable();
 
-    cv::Mat creatGameTable(std::vector<std::vector<boxTypes>> &gameTable);
+    cv::Mat creatGameTable();
     void creatBoxes(cv::Point point, int boxType);
+    void creatMovedPlayer(int &x);
 
 private:
+    std::vector<std::vector<boxTypes>> _gameTable;
     cv::VideoCapture _cap;
     int _width;
     int _hight;

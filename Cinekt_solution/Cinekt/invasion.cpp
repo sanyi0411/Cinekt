@@ -13,6 +13,16 @@ Invasion::~Invasion()
 {
 }
 
+void Invasion::setGameTable(std::vector<std::vector<boxTypes>> &gameTable)
+{
+    _gameTable = gameTable;
+}
+
+std::vector<std::vector<boxTypes>> Invasion::getGameTable()
+{
+    return _gameTable;
+}
+
 std::vector<std::vector<boxTypes>> Invasion::createStartTable()
 {
     std::vector<std::vector<boxTypes>> startTable(21);
@@ -32,20 +42,20 @@ std::vector<std::vector<boxTypes>> Invasion::createStartTable()
     return startTable;
 }
 
-cv::Mat Invasion::creatGameTable(std::vector<std::vector<boxTypes>> &gameTable)
+cv::Mat Invasion::creatGameTable()
 {
     cv::Mat gameTableMat(cv::Size(400, 400), CV_8UC3, cv::Scalar::all(0));
 
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 20; j++) {
-            if (gameTable[i][j] == GREEN) {
+            if (_gameTable[i][j] == GREEN) {
                 int posX = j * 20;
                 int posY = i * 20;
                 int rectWidth = 20;
                 cv::Rect rect (posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(0, 255, 0), -1);
             }
-            else if (gameTable[i][j] == PLAYER) {
+            else if (_gameTable[i][j] == PLAYER) {
                 int posX = j * 20;
                 int posY = i * 20;
                 int rectWidth = 20;
@@ -60,4 +70,12 @@ cv::Mat Invasion::creatGameTable(std::vector<std::vector<boxTypes>> &gameTable)
 void Invasion::creatBoxes(cv::Point point, int boxType)
 {
 
+}
+
+void Invasion::creatMovedPlayer(int &x)
+{
+    int newPosition = x / 20;
+    _gameTable[19][newPosition - 1] = PLAYER;
+    _gameTable[19][newPosition] = PLAYER;
+    _gameTable[19][newPosition + 1] = PLAYER;
 }

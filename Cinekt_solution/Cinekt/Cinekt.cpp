@@ -7,16 +7,42 @@
 #include "objectTracking.h"
 #include "invasion.h"
 
+//DELET this
+
+cv::VideoCapture cap(0);
+
+Invasion inv(cap);
+cv::Mat show;
+
+void MouseCallBackFunc(int event, int x, int y, int flag, void *userdata)
+{
+    if(flag & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
+        inv.creatMovedPlayer(x);
+        show = inv.creatGameTable();
+        cv::imshow("show", show);
+    }
+
+    if(flag & cv::MouseEventFlags::EVENT_FLAG_RBUTTON) {
+        int posX = x;
+        int posY = 400 - 40;
+        int rectWidth = 20;
+        cv::Rect rect(posX, posY, rectWidth, rectWidth);
+        cv::rectangle(show, rect, cv::Scalar(255, 0, 255), -1);
+        cv::imshow("show", show);
+    }
+}
+
+//to this point
 void main()
 {
-    cv::VideoCapture cap(0);
+    /*cv::VideoCapture cap(0);
 
     if (!cap.isOpened()) {
         std::cout << "Cannot open the web cam" << std::endl;
         return;
     }
 
-    /*cap.set(cv::CAP_PROP_FRAME_WIDTH, 2000);
+    cap.set(cv::CAP_PROP_FRAME_WIDTH, 2000);
     cap.set(cv::CAP_PROP_FRAME_HEIGHT, 2000);
 
     cv::Mat frame;
@@ -40,13 +66,18 @@ void main()
 
         cv::waitKey(16);
     }*/
+
+    //DELET this
     
-    Invasion inv(cap);
     std::vector<std::vector<boxTypes>> box = inv.createStartTable();
-    cv::Mat show;
-    show = inv.creatGameTable(box);
-    cv::imshow("show", show);
-    cv::waitKey(0);
+    inv.setGameTable(box);
 
-
+    while (true) {
+       
+        show = inv.creatGameTable();
+        cv::imshow("show", show);
+        cv::setMouseCallback("show", MouseCallBackFunc);
+        cv::waitKey(16);
+    }
+    //to this point
 }

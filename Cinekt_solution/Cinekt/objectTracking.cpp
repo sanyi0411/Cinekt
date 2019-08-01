@@ -30,10 +30,36 @@ cv::Point coord(cv::Mat frame, ColorParameters color)
     double dArea = oMoments.m00;
 
     // if the area <= 10000, I consider that the there are no object in the image and it's because of the noise, the area is not zero 
-    if (dArea > 10000) {
+    if (dArea > 25000) {
         //calculate the position of the ball
         posX = dM10 / dArea;
         posY = dM01 / dArea;
     }
     return cv::Point(posX, posY);
+}
+
+void calibrateColors(int event, int x, int y, int flags, void *userdata)
+{
+    int hueThresh = 22;
+    int satThresh = 55;
+    int valThresh = 40;
+
+    cv::Mat img = *((cv::Mat *)userdata);
+    cv::Mat hsv;
+    cvtColor(img, hsv, cv::COLOR_BGR2HSV);
+
+    if (flags & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
+        cv::Vec3b pixel = hsv.at<cv::Vec3b>(y, x);
+        if (!player2Config) {
+            player1 = {std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
+                std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
+                std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh)};
+            player2Config = true;
+        } else {
+            player2 = {std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
+                std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
+                std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh)};
+            player2Config = false;
+        }
+    }
 }

@@ -30,6 +30,7 @@ public:
     cv::Mat creatGameTable();
     void creatBoxes(cv::Point point, int boxType);
     void creatMovedPlayer(int &x);
+    void creatProjectile();
 
 private:
     std::vector<std::vector<boxTypes>> _gameTable;
@@ -37,6 +38,6 @@ private:
     int _width;
     int _hight;
     int _playerX = 10;
-    
+    std::vector<std::vector<int>> _projectilePoint;
 };
 

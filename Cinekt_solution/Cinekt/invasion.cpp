@@ -101,3 +101,8 @@ void Invasion::creatMovedPlayer(int &x)
     _gameTable[19][newPosition] = PLAYER;
     _gameTable[19][newPosition + 1] = PLAYER;
 }
+
+void Invasion::creatProjectile()
+{
+
+}

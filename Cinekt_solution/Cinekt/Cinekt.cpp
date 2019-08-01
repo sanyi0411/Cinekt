@@ -8,6 +8,9 @@
 
 void main()
 {
+    ColorParameters palyer1 = { 0,38,151,225,52,153 };
+    ColorParameters palyer2 = { 144,179,115,197,85,161 };
+
     cv::VideoCapture cap(0);
 
     if (!cap.isOpened()) {
@@ -27,11 +30,13 @@ void main()
     while (true) {
         cap >> frame;
         cv::flip(frame, frame, +1);
-        cv::Point point = coord(frame);
-        cv::circle(frame, point, 20, cv::Scalar(0, 0, 255), -1);
+        cv::Point point1 = coord(frame, palyer1);
+        cv::Point point2 = coord(frame, palyer2);
+        cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
+        cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
         cv::imshow("R", frame);
 
-        if (point.x < width * 0.25 && point.y < height * 0.25) {
+        if (point1.x < width * 0.25 && point1.y < height * 0.25) {
             std::cout << "Hello World" << std::endl;
         }
 

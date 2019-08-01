@@ -1,6 +1,6 @@
 #include "objectTracking.h"
 
-cv::Point coord(cv::Mat frame)
+cv::Point coord(cv::Mat frame, ColorParameters color)
 {
     int posX = 0;
     int posY = 0;
@@ -9,7 +9,7 @@ cv::Point coord(cv::Mat frame)
     cvtColor(frame, imgHSV, cv::COLOR_BGR2HSV);
 
     cv::Mat imgThresholded;
-    inRange(imgHSV, cv::Scalar(0, 151, 52), cv::Scalar(38, 225, 153), imgThresholded);
+    inRange(imgHSV, cv::Scalar(color.hueLow, color.saturationeLow, color.valueLow), cv::Scalar(color.hueHigh, color.saturationeHigh, color.valueHigh), imgThresholded);
 
     //morphological opening (removes small objects from the foreground)
     erode(imgThresholded, imgThresholded, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5, 5)));

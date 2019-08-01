@@ -3,5 +3,14 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
-cv::Point coord(cv::Mat);
+struct ColorParameters {
+    int hueLow;
+    int hueHigh;
+    int saturationeLow;
+    int saturationeHigh;
+    int valueLow;
+    int valueHigh;
+};
+
+cv::Point coord(cv::Mat, ColorParameters color);
 

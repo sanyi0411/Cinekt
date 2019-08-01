@@ -27,6 +27,9 @@ void main()
     int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
     int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 
+    cv::namedWindow("Cinekt");
+    cv::setMouseCallback("Cinekt", calibrateColors, &frame);
+
     const std::string welcomeText = "Welcome to Cinekt!";
     int fontFace = cv::FONT_HERSHEY_TRIPLEX;
     int fontScale = 3;

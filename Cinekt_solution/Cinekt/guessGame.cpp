@@ -3,7 +3,7 @@
 std::string questions[] = {
     /*0*/"ALU stands for...",
     /*1*/"CPU stands for...",
-    /*2*/"What is the abbreviation of OTG?",
+    /*2*/"What does OTG stands for?",
     /*3*/"NFC stands for...",
     /*4*/"ROM stand for...",
     /*5*/"RAM stands for...",
@@ -14,7 +14,7 @@ std::string questions[] = {
     /*10*/"What is the MS-DOS batch file extension?",
     /*11*/".jsp is the extension of which file?",
     /*12*/".jar is the extension of which file?",
-    /*13*/"What is the correct option of Compiled java source code file?",
+    /*13*/"The extension for compiled java source code file is",
     /*14*/".dll is the extension of which file?",
     /*15*/"The extension of a database file is...",
     /*16*/"Which of the following is an input device?",
@@ -112,23 +112,23 @@ void guessGameMenu(cv::VideoCapture cap)
 
         cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
         cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
-        cv::putText(frame, line1, cv::Point(width / 2 - (line1Size.width / 2) + 5, line1Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, fontScale3, cv::Scalar(0, 0, 0), thickness);
-        cv::putText(frame, line1, cv::Point(width / 2 - (line1Size.width / 2), line1Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, fontScale3, cv::Scalar(255, 255, 255), thickness);
+        cv::putText(frame, line1, cv::Point(width / 2 - (line1Size.width / 2) + 5, line1Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(0, 0, 0), 5);
+        cv::putText(frame, line1, cv::Point(width / 2 - (line1Size.width / 2), line1Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(255, 255, 255), 5);
         int x = line1Size.height + 15;
-        cv::putText(frame, line2, cv::Point(width / 2 - (line2Size.width / 2) + 5, x + line2Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(0, 0, 0), thickness);
-        cv::putText(frame, line2, cv::Point(width / 2 - (line2Size.width / 2), x + line2Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(255, 255, 255), thickness);
+        cv::putText(frame, line2, cv::Point(width / 2 - (line2Size.width / 2) + 5, x + line2Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 3);
+        cv::putText(frame, line2, cv::Point(width / 2 - (line2Size.width / 2), x + line2Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 3);
         x += line2Size.height + 15;
-        cv::putText(frame, line3, cv::Point(width / 2 - (line3Size.width / 2) + 5, x + line3Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(0, 0, 0), thickness);
-        cv::putText(frame, line3, cv::Point(width / 2 - (line3Size.width / 2), x + line3Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(255, 255, 255), thickness);
+        cv::putText(frame, line3, cv::Point(width / 2 - (line3Size.width / 2) + 5, x + line3Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 3);
+        cv::putText(frame, line3, cv::Point(width / 2 - (line3Size.width / 2), x + line3Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 3);
         x += line3Size.height + 15;
-        cv::putText(frame, line4, cv::Point(width / 2 - (line4Size.width / 2) + 5, x + line4Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(0, 0, 0), thickness);
-        cv::putText(frame, line4, cv::Point(width / 2 - (line4Size.width / 2), x + line4Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(255, 255, 255), thickness);
+        cv::putText(frame, line4, cv::Point(width / 2 - (line4Size.width / 2) + 5, x + line4Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 3);
+        cv::putText(frame, line4, cv::Point(width / 2 - (line4Size.width / 2), x + line4Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 3);
         x += line4Size.height + 15;
-        cv::putText(frame, line5, cv::Point(width / 2 - (line5Size.width / 2) + 5, x + line5Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(0, 0, 0), thickness);
-        cv::putText(frame, line5, cv::Point(width / 2 - (line5Size.width / 2), x + line5Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(255, 255, 255), thickness);
+        cv::putText(frame, line5, cv::Point(width / 2 - (line5Size.width / 2) + 5, x + line5Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 3);
+        cv::putText(frame, line5, cv::Point(width / 2 - (line5Size.width / 2), x + line5Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 3);
         x += line5Size.height + 15;
-        cv::putText(frame, line6, cv::Point(width / 2 - (line6Size.width / 2) + 5, x + 6 * line6Size.height + 5), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(0, 0, 0), thickness);
-        cv::putText(frame, line6, cv::Point(width / 2 - (line6Size.width / 2), x + 6 * line6Size.height), cv::FONT_HERSHEY_TRIPLEX, fontScale2, cv::Scalar(255, 255, 255), thickness);
+        cv::putText(frame, line6, cv::Point(width / 2 - (line6Size.width / 2) + 5, x + 6 * line6Size.height + 5), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 3);
+        cv::putText(frame, line6, cv::Point(width / 2 - (line6Size.width / 2), x + 6 * line6Size.height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 3);
 
         cv::Point startButton = (cv::Point(width / 2 - (line6Size.width / 2), x + 6 * line6Size.height));
 
@@ -144,22 +144,159 @@ void guessGameMenu(cv::VideoCapture cap)
     }
 }
 
+void guessGameNewQuestionPreparation(cv::VideoCapture cap)
+{
+    int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+    int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+
+    cv::Mat frame;
+
+    cv::Point point1;
+    cv::Point point2;
+
+    while (true) {
+        cap >> frame;
+        cv::flip(frame, frame, +1);
+        point1 = coord(frame, player1);
+        point2 = coord(frame, player2);
+        cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
+        cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
+
+        cv::Size scoreTextSize = cv::getTextSize("Go to your corners!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+        cv::putText(frame, "Go to your corners!", cv::Point(width / 2 - (scoreTextSize.width / 2) + 3, height / 2 + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
+        cv::putText(frame, "Go to your corners!", cv::Point(width / 2 - (scoreTextSize.width / 2), height / 2), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
+
+        cv::rectangle(frame, cv::Point(1, height - 121), cv::Point(121, height - 1), cv::Scalar(0, 0, 255), -1);
+        cv::rectangle(frame, cv::Point(width - 121, height - 121), cv::Point(width - 1, height - 1), cv::Scalar(255, 0, 0), -1);
+        
+        if (point1.x < 151 && point1.y >(height - 151) && point2.x > (width - 151) && point2.y > (height - 151)) {
+            break;
+        }
+        
+        cv::imshow("Cinekt", frame);
+        if (cv::waitKey(16) == 27) {
+            return;
+        }
+    }
+
+}
+
 void guessGamePlay(cv::VideoCapture cap)
 {
     int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
     int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
-    int counter = 0;
+
+    cv::Mat frame;
+
     bool newQuestion = true;
     int random;
+
+    cv::Point point1(0, height);
+    cv::Point point2(width, height);
 
     cv::Size questionSize;
     cv::Size answer0Size;
     cv::Size answer1Size;
     cv::Size answer2Size;
-    cv::Mat frame;
-    std::vector<int> answerX;
-    std::vector<int> answerY;
 
+    cv::Point questionPosition;
+    cv::Point answer0Position;
+    cv::Point answer1Position;
+    cv::Point answer2Position;
+
+    std::vector<cv::Point> currentAnswerPositions;
+    std::vector<cv::Size> currentAnswerSizes;
+
+    while (true) {
+        cap >> frame;
+        cv::flip(frame, frame, +1);
+        point1 = coord(frame, player1);
+        point2 = coord(frame, player2);
+        cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
+        cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
+
+        /*Calculate data for new question*/
+        if (newQuestion) {
+            random = rand() % 22;
+            newQuestion = false;
+            int baseLine = 0;
+            questionSize = cv::getTextSize(questions[random], cv::FONT_HERSHEY_TRIPLEX, 1.3, 1, &baseLine);
+            answer0Size = cv::getTextSize(answers[random][0], cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+            answer1Size = cv::getTextSize(answers[random][1], cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+            answer2Size = cv::getTextSize(answers[random][2], cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+
+            currentAnswerSizes.clear();
+            currentAnswerSizes.push_back(answer0Size);
+            currentAnswerSizes.push_back(answer1Size);
+            currentAnswerSizes.push_back(answer2Size);
+
+            questionPosition = cv::Point(width / 2 - (questionSize.width / 2), questionSize.height + 15);
+            answer0Position = cv::Point(width / 2 - (answer0Size.width / 2), questionPosition.y + 3 * answer0Size.height);
+            answer1Position = cv::Point(width / 2 - (answer1Size.width / 2), answer0Position.y + 3 * answer1Size.height);
+            answer2Position = cv::Point(width / 2 - (answer2Size.width / 2), answer1Position.y + 3 * answer2Size.height);
+
+            currentAnswerPositions.clear();
+            currentAnswerPositions.push_back(answer0Position);
+            currentAnswerPositions.push_back(answer1Position);
+            currentAnswerPositions.push_back(answer2Position);
+        }
+
+        /*Show question*/
+        cv::putText(frame, questions[random], cv::Point(questionPosition.x + 3, questionPosition.y + 3), cv::FONT_HERSHEY_TRIPLEX, 1.3, cv::Scalar(0, 0, 0), 1, 8, false);
+        cv::putText(frame, questions[random], cv::Point(questionPosition.x, questionPosition.y), cv::FONT_HERSHEY_TRIPLEX, 1.3, cv::Scalar(255, 255, 255), 1, 8, false);
+
+        cv::putText(frame, answers[random][0], cv::Point(answer0Position.x + 3, answer0Position.y + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
+        cv::putText(frame, answers[random][0], cv::Point(answer0Position.x, answer0Position.y), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
+
+        cv::putText(frame, answers[random][1], cv::Point(answer1Position.x + 3, answer1Position.y + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
+        cv::putText(frame, answers[random][1], cv::Point(answer1Position.x, answer1Position.y), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
+
+        cv::putText(frame, answers[random][2], cv::Point(answer2Position.x + 3, answer2Position.y + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
+        cv::putText(frame, answers[random][2], cv::Point(answer2Position.x, answer2Position.y), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
+
+        /*Check winner*/
+        cv::Point currentRightAnswerPosition = currentAnswerPositions[rightAnswers[random]];
+        cv::Size currentRightAnswerSize = currentAnswerSizes[rightAnswers[random]];
+
+        if (point1.x >= currentRightAnswerPosition.x && point1.x <= currentRightAnswerPosition.x + currentRightAnswerSize.width &&
+            point1.y >= currentRightAnswerPosition.y - currentRightAnswerSize.height && point1.y <= currentRightAnswerPosition.y) {
+            newQuestion = true;
+            cv::Size scoreTextSize = cv::getTextSize("Player 1 scores!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+            cv::putText(frame, "Player 1 scores!", cv::Point(width / 2 - (scoreTextSize.width / 2), height - 20), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 255), 2, 8, false);
+            cv::imshow("Cinekt", frame);
+            cv::waitKey(1500);
+        }
+
+        if (point2.x >= currentRightAnswerPosition.x && point2.x <= currentRightAnswerPosition.x + currentRightAnswerSize.width &&
+            point2.y >= currentRightAnswerPosition.y - currentRightAnswerSize.height && point2.y <= currentRightAnswerPosition.y) {
+            newQuestion = true;
+            cv::Size scoreTextSize = cv::getTextSize("Player 2 scores!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+            cv::putText(frame, "Player 2 scores!", cv::Point(width / 2 - (scoreTextSize.width / 2), height - 20), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 0, 0), 2, 8, false);
+            cv::imshow("Cinekt", frame);
+            cv::waitKey(1500);
+        }
+        
+        if (newQuestion) {
+            guessGameNewQuestionPreparation(cap);
+        }
+        
+
+        cv::imshow("Cinekt", frame);
+
+        if (cv::waitKey(5) == 27) {
+            return;
+        }
+
+    }
+}
+
+void guessGameOver(cv::VideoCapture cap)
+{
+    int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+    int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+
+    cv::Mat frame;
+    /*
     while (true) {
         cap >> frame;
         cv::flip(frame, frame, +1);
@@ -167,46 +304,8 @@ void guessGamePlay(cv::VideoCapture cap)
         cv::Point point2 = coord(frame, player2);
         cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
         cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
-
-        if (newQuestion) {
-            random = rand() % 22;
-            newQuestion = false;
-            answerX.clear();
-            questionSize = cv::getTextSize(questions[random], cv::FONT_HERSHEY_TRIPLEX, 2, 5, 0);
-            answer0Size = cv::getTextSize(answers[random][0], cv::FONT_HERSHEY_TRIPLEX, 2, 5, 0);
-            answerX.push_back(answer0Size.width);
-            answer1Size = cv::getTextSize(answers[random][1], cv::FONT_HERSHEY_TRIPLEX, 2, 5, 0);
-            answerX.push_back(answer1Size.width);
-            answer2Size = cv::getTextSize(answers[random][2], cv::FONT_HERSHEY_TRIPLEX, 2, 5, 0);
-            answerX.push_back(answer2Size.width);
-        }
-        answerY.clear();
-        cv::putText(frame, questions[random], cv::Point(width / 2 - (questionSize.width / 2) + 5, questionSize.height + 15), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(0, 0, 0), 5);
-        cv::putText(frame, questions[random], cv::Point(width / 2 - (questionSize.width / 2), questionSize.height + 10), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(255, 255, 255), 5);
-        int x = questionSize.height + 15;
-        cv::putText(frame, answers[random][0], cv::Point(width / 2 - (answer0Size.width / 2) + 5, x + answer0Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(0, 0, 0), 5);
-        cv::putText(frame, answers[random][0], cv::Point(width / 2 - (answer0Size.width / 2), x + answer0Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(255, 255, 255), 5);
-        answerY.push_back(x + answer0Size.height + 15);
-        x += answer0Size.height + 15;
-        cv::putText(frame, answers[random][1], cv::Point(width / 2 - (answer1Size.width / 2) + 5, x + answer1Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(0, 0, 0), 5);
-        cv::putText(frame, answers[random][1], cv::Point(width / 2 - (answer1Size.width / 2), x + answer1Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(255, 255, 255), 5);
-        answerY.push_back(x + answer1Size.height + 15);
-        x += answer1Size.height + 15;
-        cv::putText(frame, answers[random][2], cv::Point(width / 2 - (answer2Size.width / 2) + 5, x + answer2Size.height + 15), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(0, 0, 0), 5);
-        cv::putText(frame, answers[random][2], cv::Point(width / 2 - (answer2Size.width / 2), x + answer2Size.height + 10), cv::FONT_HERSHEY_TRIPLEX, 3, cv::Scalar(255, 255, 255), 5);
-        answerY.push_back(x + answer2Size.height + 15);
-
-        cv::Point rightAnswer(width / 2 - (answerX[rightAnswers[random]] / 2), answerY[rightAnswers[random]]);
-
-        if (point1.x >= rightAnswer.x && point1.x <= (rightAnswer.x + answerX[rightAnswers[random]]) && point1.y >= rightAnswer.y && point1.y <= (rightAnswer.y - answer0Size.height)) {
-            return;
-        }
     }
-}
-
-void guessGameOver(cv::VideoCapture cap)
-{
-
+    */
 }
 
 void guessGame(cv::VideoCapture cap)

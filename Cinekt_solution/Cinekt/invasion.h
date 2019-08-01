@@ -4,6 +4,7 @@
 #include "objectTracking.h"
 #include "opencv2/core.hpp"
 #include <vector>
+#include <time.h>
 
 enum boxTypes {
     BLANK,
@@ -27,6 +28,8 @@ public:
 
     std::vector<std::vector<boxTypes>> createStartTable();
 
+    void runGame();
+
     cv::Mat creatGameTable();
     void creatBoxes(cv::Point point, int boxType);
     void creatProjectile();
@@ -37,7 +40,7 @@ public:
     
     void destroyProjectile();
     void destroyProjectileWithCollision(int position);
-    void gameOver();
+    bool gameOver(bool runGame = true);
     
 private:
     std::vector<std::vector<boxTypes>> _gameTable;

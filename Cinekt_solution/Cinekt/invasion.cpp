@@ -47,6 +47,37 @@ std::vector<std::vector<boxTypes>> Invasion::createStartTable()
     return startTable;
 }
 
+void Invasion::runGame()
+{
+    cv::VideoCapture cap(0);
+
+    Invasion inv(cap);
+    cv::Mat show;
+
+    bool run = true;
+
+    clock_t projectileBegin = clock();
+    clock_t boxBegin = clock();
+
+
+    while (gameOver()) {
+        clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
+        clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
+        if (projectileClock >= 0.2) {
+            movedProjectile();
+            projectileBegin = clock();
+        }
+        if (boxClock >= 3.0) {
+            movedBoxes();
+            boxBegin = clock();
+        }
+        show = creatGameTable();
+        cv::imshow("show", show);
+        cv::waitKey(16);
+    }
+    cv::destroyAllWindows();
+}
+
 cv::Mat Invasion::creatGameTable()
 {
     cv::Mat gameTableMat(cv::Size(400, 400), CV_8UC3, cv::Scalar::all(0));
@@ -181,7 +212,7 @@ void Invasion::movedBoxes()
                     }
                 } else if (_gameTable[i + 1][j] == PLAYER) {
                     if (_gameTable[i][j] == RED || _gameTable[i][j] == YELLOW || _gameTable[i][j] == GREEN) {
-                        gameOver();
+                        gameOver(false);
                     }
                 } else {
                     newGameTable[i + 1][j] = _gameTable[i][j];
@@ -210,9 +241,9 @@ void Invasion::destroyProjectileWithCollision(int position)
     }
 }
 
-void Invasion::gameOver()
+bool Invasion::gameOver(bool runGame)
 {
-    cv::destroyAllWindows();
+    return runGame;
 }
 
 void Invasion::creatProjectile()

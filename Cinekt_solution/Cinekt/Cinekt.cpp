@@ -75,7 +75,7 @@ void main()
     while (run) {
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
-        if (projectileClock >= 0.5) {
+        if (projectileClock >= 0.2) {
             inv.movedProjectile();
             projectileBegin = clock();
         }

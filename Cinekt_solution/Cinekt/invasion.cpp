@@ -147,10 +147,13 @@ void Invasion::movedBoxes()
                 if (_gameTable[i + 1][j] == PROJECTILE) {
                     if (_gameTable[i][j] == RED) {
                         newGameTable[i + 1][j] == YELLOW;
+                        destroyProjectileWithCollision(i + 1);
                     } else if (_gameTable[i][j] == YELLOW) {
                         newGameTable[i + 1][j] == GREEN;
+                        destroyProjectileWithCollision(i + 1);
                     } else if (_gameTable[i][j] == GREEN) {
                         newGameTable[i + 1][j] == BLANK;
+                        destroyProjectileWithCollision(i + 1);
                     }
                 } else if (_gameTable[i + 1][j] == PLAYER) {
                     
@@ -167,6 +170,17 @@ void Invasion::destroyProjectile()
     _gameTable[_projectilePoint[0][0]][_projectilePoint[0][1]] = BLANK;
     std::vector<std::vector<int>>::iterator it = _projectilePoint.begin();
     _projectilePoint.erase(it);
+}
+
+void Invasion::destroyProjectileWithCollision(int position)
+{
+    std::vector<std::vector<int>>::iterator it = _projectilePoint.begin();
+    for (it ; it != _projectilePoint.end(); it++) {
+        if (it->at[0] == position) {
+            _projectilePoint.erase(it);
+            break;
+        }
+    }
 }
 
 void Invasion::creatProjectile()

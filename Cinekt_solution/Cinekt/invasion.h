@@ -36,7 +36,7 @@ public:
     void movedBoxes();
     
     void destroyProjectile();
-    void destroyProjectileWithCollision();
+    void destroyProjectileWithCollision(int position);
     
 private:
     std::vector<std::vector<boxTypes>> _gameTable;

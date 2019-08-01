@@ -132,6 +132,7 @@ void Invasion::creatMovedProjectile()
 
 void Invasion::destroyProjectile()
 {
+    _gameTable[_projectilePoint[0][0]][_projectilePoint[0][1]] = BLANK;
     std::vector<std::vector<int>>::iterator it = _projectilePoint.begin();
     _projectilePoint.erase(it);
 }

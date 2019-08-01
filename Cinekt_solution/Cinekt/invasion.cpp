@@ -127,7 +127,6 @@ void Invasion::creatMovedProjectile()
         else {
             destroyProjectile();
         }
-    
     }
 }
 

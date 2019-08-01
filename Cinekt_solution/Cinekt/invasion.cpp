@@ -30,13 +30,13 @@ void Invasion::setPlayerX(int playerX)
 
 void Invasion::createStartTable()
 {
-    std::vector<std::vector<boxTypes>> startTable(21);
+    std::vector<std::vector<boxTypes>> startTable(TABLE_SIZE);
 
-    for (int i = 0; i < 21; i++) {
-        for (int j = 0; j < 20; j++) {
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        for (int j = 0; j < TABLE_SIZE - 1; j++) {
             if (i == 0) {
                 startTable[i].push_back(RED);
-            } else if (i > 19 || i == 19 && j >= 9 && j <= 11) {
+            } else if (i > TABLE_SIZE - 2 || i == TABLE_SIZE - 2 && j >= TABLE_SIZE / 2 - 1 && j <= TABLE_SIZE / 2 + 1) {
                 startTable[i].push_back(PLAYER);
             } else {
                 startTable[i].push_back(BLANK);
@@ -48,7 +48,6 @@ void Invasion::createStartTable()
 
 void Invasion::runGame()
 {
-    cv::VideoCapture _cap(0);
     createStartTable();
 
     cv::Mat frame;
@@ -67,10 +66,10 @@ void Invasion::runGame()
 
         // Handling paddle movement
         cv::Point point1 = coord(frame, player1);
-        _playerX = point1.x;
+        movedPlayer(point1.x);
         cv::Point point2 = coord(frame, player2);
         
-
+        
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         if (projectileClock >= 0.2) {
@@ -82,6 +81,7 @@ void Invasion::runGame()
             boxBegin = clock();
         }
         game = creatGameTable();
+        cv::imshow("Cinekt", frame);
         cv::imshow("show", game);
         cv::waitKey(16);
     }
@@ -90,9 +90,9 @@ void Invasion::runGame()
 
 cv::Mat Invasion::creatGameTable()
 {
-    cv::Mat gameTableMat(cv::Size(400, 400), CV_8UC3, cv::Scalar::all(0));
+    cv::Mat gameTableMat(cv::Size(_width / 2, _height / 2), CV_8UC3, cv::Scalar::all(0));
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 40; i++) {
         for (int j = 0; j < 20; j++) {
             if (_gameTable[i][j] == GREEN) {
                 int posX = j * 20;

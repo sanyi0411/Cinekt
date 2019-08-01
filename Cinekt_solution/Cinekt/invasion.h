@@ -6,6 +6,8 @@
 #include <vector>
 #include <time.h>
 
+#define TABLE_SIZE 41
+
 enum boxTypes {
     BLANK,
     GREEN,
@@ -46,7 +48,7 @@ private:
     std::vector<std::vector<boxTypes>> _gameTable;
     cv::VideoCapture _cap;
     int _width;
-    int _hight;
+    int _height;
     int _playerX = 10;
     std::vector<std::vector<int>> _projectilePoint;
 };

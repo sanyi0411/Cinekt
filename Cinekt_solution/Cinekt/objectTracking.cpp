@@ -46,8 +46,6 @@ cv::Point coord(cv::Mat frame, ColorParameters color)
 
 void calibrateColors(int event, int x, int y, int flags, void *userdata)
 {
-
-
     if (flags & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
         double minHue;
         double maxHue;

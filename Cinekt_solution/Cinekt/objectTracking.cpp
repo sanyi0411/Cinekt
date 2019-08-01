@@ -1,5 +1,8 @@
 #include "objectTracking.h"
 
+ColorParameters palyer1 = { 0,38,151,225,52,153 };
+ColorParameters palyer2 = { 144,179,115,197,85,161 };
+
 cv::Point coord(cv::Mat frame, ColorParameters color)
 {
     int posX = 0;

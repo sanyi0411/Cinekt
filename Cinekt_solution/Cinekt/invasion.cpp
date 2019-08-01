@@ -82,7 +82,7 @@ void Invasion::runGame()
         }
         game = creatGameTable();
         cv::imshow("Cinekt", frame);
-        cv::imshow("show", game);
+        cv::imshow("Invasion", game);
         cv::waitKey(16);
     }
     cv::destroyAllWindows();
@@ -90,38 +90,38 @@ void Invasion::runGame()
 
 cv::Mat Invasion::creatGameTable()
 {
-    cv::Mat gameTableMat(cv::Size(_width / 2, _height / 2), CV_8UC3, cv::Scalar::all(0));
+    cv::Mat gameTableMat(cv::Size(WINDOW_PARAMETER, WINDOW_PARAMETER), CV_8UC3, cv::Scalar::all(0));
 
-    for (int i = 0; i < 40; i++) {
-        for (int j = 0; j < 20; j++) {
+    for (int i = 0; i < TABLE_SIZE - 1; i++) {
+        for (int j = 0; j < TABLE_SIZE - 1; j++) {
             if (_gameTable[i][j] == GREEN) {
-                int posX = j * 20;
-                int posY = i * 20;
-                int rectWidth = 20;
+                int posX = j * RECTANGLE_PARAMETER;
+                int posY = i * RECTANGLE_PARAMETER;
+                int rectWidth = RECTANGLE_PARAMETER;
                 cv::Rect rect (posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(0, 255, 0), -1);
             } else if (_gameTable[i][j] == PLAYER) {
-                int posX = j * 20;
-                int posY = i * 20;
-                int rectWidth = 20;
+                int posX = j * RECTANGLE_PARAMETER;
+                int posY = i * RECTANGLE_PARAMETER;
+                int rectWidth = RECTANGLE_PARAMETER;
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(255, 255, 255), -1);
             } else if (_gameTable[i][j] == PROJECTILE) {
-                int posX = j * 20;
-                int posY = i * 20;
-                int rectWidth = 20;
+                int posX = j * RECTANGLE_PARAMETER;
+                int posY = i * RECTANGLE_PARAMETER;
+                int rectWidth = RECTANGLE_PARAMETER;
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(255, 0, 0), -1);
             } else if (_gameTable[i][j] == RED) {
-                int posX = j * 20;
-                int posY = i * 20;
-                int rectWidth = 20;
+                int posX = j * RECTANGLE_PARAMETER;
+                int posY = i * RECTANGLE_PARAMETER;
+                int rectWidth = RECTANGLE_PARAMETER;
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(0, 0, 255), -1);
             } else if (_gameTable[i][j] == YELLOW) {
-                int posX = j * 20;
-                int posY = i * 20;
-                int rectWidth = 20;
+                int posX = j * RECTANGLE_PARAMETER;
+                int posY = i * RECTANGLE_PARAMETER;
+                int rectWidth = RECTANGLE_PARAMETER;
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(0, 255, 255), -1);
             }
@@ -137,22 +137,22 @@ void Invasion::creatBoxes(cv::Point point, int boxType)
 
 void Invasion::movedPlayer(int &x)
 {
-    _gameTable[19][_playerX - 1] = BLANK;
-    _gameTable[19][_playerX] = BLANK;
-    _gameTable[19][_playerX + 1] = BLANK;
-    int newPosition = x / 20;
+    _gameTable[TABLE_SIZE - 2][_playerX - 1] = BLANK;
+    _gameTable[TABLE_SIZE - 2][_playerX] = BLANK;
+    _gameTable[TABLE_SIZE - 2][_playerX + 1] = BLANK;
+    int newPosition = x / (TABLE_SIZE - 1);
     
     if(newPosition < 0) {
         newPosition = 0;
     }
-    if (newPosition > 19) {
-        newPosition = 19;
+    if (newPosition > TABLE_SIZE - 2) {
+        newPosition = TABLE_SIZE - 2;
     }
 
     setPlayerX(newPosition);
-    _gameTable[19][newPosition - 1] = PLAYER;
-    _gameTable[19][newPosition] = PLAYER;
-    _gameTable[19][newPosition + 1] = PLAYER;
+    _gameTable[TABLE_SIZE - 2][newPosition - 1] = PLAYER;
+    _gameTable[TABLE_SIZE - 2][newPosition] = PLAYER;
+    _gameTable[TABLE_SIZE - 2][newPosition + 1] = PLAYER;
 }
 
 void Invasion::movedProjectile()
@@ -187,13 +187,13 @@ void Invasion::movedBoxes()
 {
     std::vector<std::vector<boxTypes>> newGameTable = _gameTable;
     //Fill up first row
-    for (int i = 0; i < 20; i ++) {
+    for (int i = 0; i < TABLE_SIZE - 1; i ++) {
         newGameTable[0][i] = BLANK;
     }
 
     //Move boxes one unit down
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 20; j++) {
+    for (int i = 0; i < TABLE_SIZE - 1; i++) {
+        for (int j = 0; j < TABLE_SIZE - 1; j++) {
             if (_gameTable[i][j] == PROJECTILE) {
                 continue;
             }else if (_gameTable[i][j] == PLAYER) {
@@ -259,6 +259,6 @@ bool Invasion::gameOver(bool runGame)
 void Invasion::creatProjectile()
 {
     _gameTable[18][_playerX] = PROJECTILE;
-    std::vector<int> point = { 18, _playerX };
+    std::vector<int> point = { TABLE_SIZE - 3, _playerX };
     _projectilePoint.push_back(point);
 }

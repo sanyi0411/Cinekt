@@ -1,14 +1,16 @@
 #include <iostream>
+#include <time.h>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "WinMM.Lib")
 #include "objectTracking.h"
+#include "guessGame.h"
 
 void main()
 {
-
+    srand(time(NULL));
     cv::VideoCapture cap(0);
 
     if (!cap.isOpened()) {
@@ -25,19 +27,32 @@ void main()
     int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
     int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 
+    const std::string welcomeText = "Welcome to Cinekt!";
+    int fontFace = cv::FONT_HERSHEY_TRIPLEX;
+    int fontScale = 3;
+    int thickness = 5;
+    int baseLine = 0;
+    cv::Size textSize = cv::getTextSize(welcomeText, fontFace, fontScale, thickness, &baseLine);
+
     while (true) {
         cap >> frame;
         cv::flip(frame, frame, +1);
-        cv::Point point1 = coord(frame, palyer1);
-        cv::Point point2 = coord(frame, palyer2);
+
+        cv::putText(frame, welcomeText, cv::Point(width / 2 - (textSize.width / 2) + 5, textSize.height + 15), cv::FONT_HERSHEY_TRIPLEX, fontScale, cv::Scalar(0,0,0), thickness);
+        cv::putText(frame, welcomeText, cv::Point(width / 2 - (textSize.width / 2), textSize.height + 10), cv::FONT_HERSHEY_TRIPLEX, fontScale, cv::Scalar(255,255,255), thickness);
+
+        cv::Point point1 = coord(frame, player1);
+        cv::Point point2 = coord(frame, player2);
         cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
         cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
-        cv::imshow("R", frame);
+        cv::imshow("Cinekt", frame);
 
         if (point1.x < width * 0.25 && point1.y < height * 0.25) {
-            std::cout << "Hello World" << std::endl;
+            guessGame(cap);
         }
 
-        cv::waitKey(16);
+        if (cv::waitKey(16) == 27) {
+            return;
+        }
     }
 }

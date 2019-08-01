@@ -1,12 +1,12 @@
 #include "objectTracking.h"
 
-ColorParameters palyer1 = { 0,38,151,225,52,153 };
-ColorParameters palyer2 = { 144,179,115,197,85,161 };
+ColorParameters player1 = { 0,37,90,175,116,167 };
+ColorParameters player2 = { 144,179,115,197,85,161 };
 
 cv::Point coord(cv::Mat frame, ColorParameters color)
 {
-    int posX = 0;
-    int posY = 0;
+    int posX = frame.cols / 2;
+    int posY = frame.rows / 2;
 
     cv::Mat imgHSV;
     cvtColor(frame, imgHSV, cv::COLOR_BGR2HSV);

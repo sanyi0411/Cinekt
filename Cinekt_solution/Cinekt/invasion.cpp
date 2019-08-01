@@ -35,7 +35,7 @@ std::vector<std::vector<boxTypes>> Invasion::createStartTable()
     for (int i = 0; i < 21; i++) {
         for (int j = 0; j < 20; j++) {
             if (i == 0) {
-                startTable[i].push_back(GREEN);
+                startTable[i].push_back(RED);
             } else if (i > 19 || i == 19 && j >= 9 && j <= 11) {
                 startTable[i].push_back(PLAYER);
             } else {
@@ -71,6 +71,18 @@ cv::Mat Invasion::creatGameTable()
                 int rectWidth = 20;
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(255, 0, 0), -1);
+            } else if (_gameTable[i][j] == RED) {
+                int posX = j * 20;
+                int posY = i * 20;
+                int rectWidth = 20;
+                cv::Rect rect(posX, posY, rectWidth, rectWidth);
+                cv::rectangle(gameTableMat, rect, cv::Scalar(0, 0, 255), -1);
+            } else if (_gameTable[i][j] == YELLOW) {
+                int posX = j * 20;
+                int posY = i * 20;
+                int rectWidth = 20;
+                cv::Rect rect(posX, posY, rectWidth, rectWidth);
+                cv::rectangle(gameTableMat, rect, cv::Scalar(0, 255, 255), -1);
             }
         }
     }
@@ -133,33 +145,48 @@ void Invasion::movedProjectile()
 void Invasion::movedBoxes()
 {
     std::vector<std::vector<boxTypes>> newGameTable = _gameTable;
+    //Fill up first row
+    for (int i = 0; i < 20; i ++) {
+        newGameTable[0][i] = BLANK;
+    }
+
+    //Move boxes one unit down
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 20; j++) {
-            if (i == 0) {
-                newGameTable[i][j] = BLANK;
-            }else if (_gameTable[i][j] == PROJECTILE) {
+            if (_gameTable[i][j] == PROJECTILE) {
                 continue;
             }else if (_gameTable[i][j] == PLAYER) {
                 continue;
             }else if (_gameTable[i][j] == BLANK) {
-                continue;
+                if (_gameTable[i + 1][j] != PROJECTILE && _gameTable[i + 1][j] != PLAYER) {
+                    newGameTable[i + 1][j] = BLANK;
+                    continue;
+                } else {
+                    continue;
+                }
             }else {
                 if (_gameTable[i + 1][j] == PROJECTILE) {
                     if (_gameTable[i][j] == RED) {
                         newGameTable[i + 1][j] == YELLOW;
                         destroyProjectileWithCollision(i + 1);
+                        continue;
                     } else if (_gameTable[i][j] == YELLOW) {
                         newGameTable[i + 1][j] == GREEN;
                         destroyProjectileWithCollision(i + 1);
+                        continue;
                     } else if (_gameTable[i][j] == GREEN) {
                         newGameTable[i + 1][j] == BLANK;
                         destroyProjectileWithCollision(i + 1);
+                        continue;
                     }
                 } else if (_gameTable[i + 1][j] == PLAYER) {
-                    
+                    if (_gameTable[i][j] == RED || _gameTable[i][j] == YELLOW || _gameTable[i][j] == GREEN) {
+                        gameOver();
+                    }
+                } else {
+                    newGameTable[i + 1][j] = _gameTable[i][j];
                 }
             }
-
         }
     }
     setGameTable(newGameTable);
@@ -176,11 +203,16 @@ void Invasion::destroyProjectileWithCollision(int position)
 {
     std::vector<std::vector<int>>::iterator it = _projectilePoint.begin();
     for (it ; it != _projectilePoint.end(); it++) {
-        if (it->at[0] == position) {
+        if (it->at(0) == position) {
             _projectilePoint.erase(it);
             break;
         }
     }
+}
+
+void Invasion::gameOver()
+{
+    cv::destroyAllWindows();
 }
 
 void Invasion::creatProjectile()

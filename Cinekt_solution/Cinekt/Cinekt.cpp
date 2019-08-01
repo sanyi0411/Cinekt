@@ -26,6 +26,8 @@ void MouseCallBackFunc(int event, int x, int y, int flag, void *userdata)
         inv.creatProjectile();
         cv::waitKey(60);
         inv.movedProjectile();
+        cv::waitKey(60);
+        inv.movedBoxes();
     }
 }
 

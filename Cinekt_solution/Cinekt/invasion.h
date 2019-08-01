@@ -37,6 +37,7 @@ public:
     
     void destroyProjectile();
     void destroyProjectileWithCollision(int position);
+    void gameOver();
     
 private:
     std::vector<std::vector<boxTypes>> _gameTable;

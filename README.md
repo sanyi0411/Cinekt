@@ -9,8 +9,8 @@ It is an interactive game where you play by moving in front of the camera. The c
 
 ## The team
 
-We are [Greenfox Academy](https://www.greenfoxacademy.com/) students, in it's Ferrilata cohort, studying embedded programming
-[Derda Sándor](https://github.com/sanyi0411)
-[Hegyes Bence](https://github.com/hbence97)
-[Moharos Bence](https://github.com/moharos89)
-[Zboray Balázs](https://github.com/zbory)
+We are [Greenfox Academy](https://www.greenfoxacademy.com/) students, in it's Ferrilata cohort, studying embedded programming<br/>
+[Derda Sándor](https://github.com/sanyi0411)<br/>
+[Hegyes Bence](https://github.com/hbence97)<br/>
+[Moharos Bence](https://github.com/moharos89)<br/>
+[Zboray Balázs](https://github.com/zbory)<br/>

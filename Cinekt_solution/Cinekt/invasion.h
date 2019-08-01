@@ -23,6 +23,7 @@ public:
 
     void setGameTable(std::vector<std::vector<boxTypes>> &gameTable);
     std::vector<std::vector<boxTypes>> getGameTable();
+    void setPlayerX(int playerX);
 
     std::vector<std::vector<boxTypes>> createStartTable();
 
@@ -35,6 +36,7 @@ private:
     cv::VideoCapture _cap;
     int _width;
     int _hight;
+    int _playerX = 10;
     
 };
 

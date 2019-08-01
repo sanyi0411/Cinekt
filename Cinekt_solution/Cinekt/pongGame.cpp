@@ -13,12 +13,12 @@ struct Ball {
 struct Paddle {
     int xPos;
     int yPos;
-    int ySpeed;
 };
 
 static int paddleLenght;
 static int paddleWidth = 10;
 static int ballSize = 20;
+int win_cond = 3;
 Ball ball;
 Paddle paddle1;
 Paddle paddle2;
@@ -44,10 +44,10 @@ void pongGame(cv::VideoCapture webcam)
     paddleLenght = height / 5;
 
     ball = resetBall();
-    paddle1 = { 25, height / 2, 0 };
-    paddle2 = { width - 25, height / 2, 0 };
+    paddle1 = { 25, height / 2};
+    paddle2 = { width - 25, height / 2};
 
-    while (player1Score < 5 && player2Score < 5) {
+    while (player1Score < win_cond && player2Score < win_cond) {
         webcam >> frame;
 
         // Mirroring webcam image horizontally
@@ -55,10 +55,8 @@ void pongGame(cv::VideoCapture webcam)
 
         // Handling paddle movement
         cv::Point point1 = coord(frame, player1);
-        paddle1.ySpeed = abs(paddle1.yPos - point1.y) / 50;
         paddle1.yPos = point1.y;
         cv::Point point2 = coord(frame, player2);
-        paddle2.ySpeed = abs(paddle2.yPos - point2.y) / 50;
         paddle2.yPos = point2.y;
 
         // Draw objects
@@ -87,25 +85,24 @@ void collision(cv::Mat screen)
 {
     if (ball.xPos - ballSize <= paddle1.xPos + paddleWidth / 2) {
         if (ball.yPos >= paddle1.yPos - paddleLenght / 2 && ball.yPos <= paddle1.yPos + paddleLenght / 2) {
-            ball.xSpeed *= -1.2;
+            ball.xSpeed *= -1.25;
         } else {
+            screenshots.push_back(cv::Mat(screen.clone()));
             ball = resetBall();
             player2Score++;
-            screenshots.push_back(screen);
         }
     }
     if (ball.xPos + ballSize >= paddle2.xPos - paddleWidth / 2) {
         if (ball.yPos >= paddle2.yPos - paddleLenght / 2 && ball.yPos <= paddle2.yPos + paddleLenght / 2) {
-            ball.xSpeed *= -1.2;
+            ball.xSpeed *= -1.25;
         } else {
+            screenshots.push_back(screen.clone());
             ball = resetBall();
             player1Score++;
-            screenshots.push_back(screen);
         }
     }
     if (ball.yPos - ballSize <= 0 || ball.yPos + ballSize >= height)
         ball.ySpeed *= -1;
-    //std::cout << ball.xSpeed << " " << ball.ySpeed << std::endl;
 }
 
 void drawPaddle(cv::Mat screen, Paddle paddle)
@@ -125,14 +122,16 @@ Ball resetBall()
 
 void drawScore(cv::Mat screen)
 {
-    cv::putText(screen, std::to_string(player1Score),cv::Point(20, height - 20), cv::FONT_HERSHEY_SIMPLEX, 3, CV_RGB(255, 255, 255), 2);
-    cv::putText(screen, std::to_string(player2Score),cv::Point(width - 20, height - 20), cv::FONT_HERSHEY_SIMPLEX, 3, CV_RGB(255, 255, 255), 2);
+    cv::putText(screen, std::to_string(player1Score),cv::Point(20, height - 20), cv::FONT_HERSHEY_SIMPLEX, 4, CV_RGB(255, 0, 0), 5);
+    cv::putText(screen, std::to_string(player2Score),cv::Point(width - 120, height - 20), cv::FONT_HERSHEY_SIMPLEX, 4, CV_RGB(255, 0, 0 ), 5);
 }
 
 void slideShow()
 {
+    std::cout << screenshots.size();
     for (int i = 0; i < screenshots.size(); i++) {
         cv::imshow("Cinekt", screenshots[i]);
-        Sleep(1000);
+        //cv::imwrite("scr" + std::to_string(i) + ".jpg", screenshots[i]);
+        Sleep(500);
     }
 }

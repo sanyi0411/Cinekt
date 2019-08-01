@@ -17,8 +17,8 @@ void main()
         return;
     }
 
-    cap.set(cv::CAP_PROP_FRAME_WIDTH, 2000);
-    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 2000);
+    cap.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
+    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
 
     cv::Mat frame;
     cap >> frame;

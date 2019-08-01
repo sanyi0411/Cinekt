@@ -115,7 +115,7 @@ void Invasion::creatMovedProjectile()
                 } else if (_gameTable[_projectilePoint[i][0] - 1][_projectilePoint[i][1]] == YELLOW) {
                     _gameTable[_projectilePoint[i][0] - 1][_projectilePoint[i][1]] = GREEN;
                     destroyProjectile();
-                } else if (_gameTable[_projectilePoint[i][0] - 1][_projectilePoint[i][1]] == GREEN) {
+                } else if(_gameTable[_projectilePoint[i][0] - 1][_projectilePoint[i][1]] == GREEN) {
                     _gameTable[_projectilePoint[i][0] - 1][_projectilePoint[i][1]] = BLANK;
                     destroyProjectile();
                 }

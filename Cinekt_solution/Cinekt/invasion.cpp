@@ -28,7 +28,7 @@ void Invasion::setPlayerX(int playerX)
     _playerX = playerX;
 }
 
-std::vector<std::vector<boxTypes>> Invasion::createStartTable()
+void Invasion::createStartTable()
 {
     std::vector<std::vector<boxTypes>> startTable(21);
 
@@ -43,18 +43,15 @@ std::vector<std::vector<boxTypes>> Invasion::createStartTable()
             }
         }
     }
-
-    return startTable;
+    setGameTable(startTable);
 }
 
 void Invasion::runGame()
 {
-    cv::VideoCapture cap(0);
+    cv::VideoCapture _cap(0);
+    createStartTable();
 
-    Invasion inv(cap);
     cv::Mat show;
-
-    bool run = true;
 
     clock_t projectileBegin = clock();
     clock_t boxBegin = clock();

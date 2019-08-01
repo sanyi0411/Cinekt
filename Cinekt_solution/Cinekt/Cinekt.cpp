@@ -29,8 +29,8 @@ void MouseCallBackFunc(int event, int x, int y, int flag, void *userdata)
 //to this point
 void main()
 {
-    /*cv::VideoCapture cap(0);
-
+    cv::VideoCapture cap(0);
+    /*
     if (!cap.isOpened()) {
         std::cout << "Cannot open the web cam" << std::endl;
         return;
@@ -61,9 +61,10 @@ void main()
         cv::waitKey(16);
     }*/
 
-    //DELET this
-    
-    std::vector<std::vector<boxTypes>> box = inv.createStartTable();
+        //DELET this
+    Invasion inv(cap);
+    inv.runGame();
+    /*std::vector<std::vector<boxTypes>> box = inv.createStartTable();
     inv.setGameTable(box);
 
     bool run = true;
@@ -87,6 +88,6 @@ void main()
         cv::imshow("show", show);
         cv::setMouseCallback("show", MouseCallBackFunc);
         cv::waitKey(16);
-    }
+    } */
     //to this point
 }

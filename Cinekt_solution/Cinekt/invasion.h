@@ -26,7 +26,7 @@ public:
     std::vector<std::vector<boxTypes>> getGameTable();
     void setPlayerX(int playerX);
 
-    std::vector<std::vector<boxTypes>> createStartTable();
+    void createStartTable();
 
     void runGame();
 

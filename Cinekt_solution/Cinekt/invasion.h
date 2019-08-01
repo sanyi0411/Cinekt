@@ -29,9 +29,13 @@ public:
 
     cv::Mat creatGameTable();
     void creatBoxes(cv::Point point, int boxType);
-    void creatMovedPlayer(int &x);
     void creatProjectile();
 
+    void creatMovedPlayer(int &x);
+    void creatMovedProjectile();
+    
+    void destroyProjectile();
+    
 private:
     std::vector<std::vector<boxTypes>> _gameTable;
     cv::VideoCapture _cap;

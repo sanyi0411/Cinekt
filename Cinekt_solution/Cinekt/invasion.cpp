@@ -102,7 +102,30 @@ void Invasion::creatMovedPlayer(int &x)
     _gameTable[19][newPosition + 1] = PLAYER;
 }
 
+void Invasion::creatMovedProjectile()
+{
+    for (int i = 0; i < _projectilePoint.size(); i ++) {
+        _gameTable[_projectilePoint[i][0]][_projectilePoint[i][1]] = BLANK;
+
+        if (_projectilePoint[i][0] != 0) {
+            _gameTable[_projectilePoint[i][0] - 1][_projectilePoint[i][1]] = PROJECTILE;
+            _projectilePoint[i][0]--;
+        }
+        else {
+            destroyProjectile();
+        }    
+    }
+}
+
+void Invasion::destroyProjectile()
+{
+    std::vector<std::vector<int>>::iterator it = _projectilePoint.begin();
+    _projectilePoint.erase(it);
+}
+
 void Invasion::creatProjectile()
 {
     _gameTable[18][_playerX] = PROJECTILE;
+    std::vector<int> point = { 18, _playerX };
+    _projectilePoint.push_back(point);
 }

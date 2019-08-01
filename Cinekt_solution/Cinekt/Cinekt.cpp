@@ -24,6 +24,8 @@ void MouseCallBackFunc(int event, int x, int y, int flag, void *userdata)
 
     if(flag & cv::MouseEventFlags::EVENT_FLAG_RBUTTON) {
         inv.creatProjectile();
+        cv::waitKey(60);
+        inv.creatMovedProjectile();
     }
 }
 

@@ -42,6 +42,11 @@ void main()
             pongGame(cap);
         }
 
+        if (point1.x > width * 0.75 && point1.y < height * 0.25) {
+            Invasion invasion(cap);
+            invasion.runGame();
+        }
+
         int input = cv::waitKey(16);
         if (input == 32) {
             std::cout << "Esc key is pressed by user. Stopping the video" << std::endl;

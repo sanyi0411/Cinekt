@@ -51,13 +51,26 @@ void Invasion::runGame()
     cv::VideoCapture _cap(0);
     createStartTable();
 
-    cv::Mat show;
+    cv::Mat frame;
+    cv::Mat game;
 
     clock_t projectileBegin = clock();
     clock_t boxBegin = clock();
 
 
     while (gameOver()) {
+        
+        _cap >> frame;
+
+        // Mirroring webcam image horizontally
+        cv::flip(frame, frame, +1);
+
+        // Handling paddle movement
+        cv::Point point1 = coord(frame, player1);
+        _playerX = point1.x;
+        cv::Point point2 = coord(frame, player2);
+        
+
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         if (projectileClock >= 0.2) {
@@ -68,8 +81,8 @@ void Invasion::runGame()
             movedBoxes();
             boxBegin = clock();
         }
-        show = creatGameTable();
-        cv::imshow("show", show);
+        game = creatGameTable();
+        cv::imshow("show", game);
         cv::waitKey(16);
     }
     cv::destroyAllWindows();

@@ -50,8 +50,16 @@ void calibrateColors(int event, int x, int y, int flags, void *userdata)
 
     if (flags & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
         cv::Vec3b pixel = hsv.at<cv::Vec3b>(y, x);
-        player1 = { std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
-            std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
-            std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh) };
+        if (!player2Config) {
+            player1 = { std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
+                std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
+                std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh) };
+            player2Config = true;
+        } else {
+            player2 = { std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
+                std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
+                std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh) };
+            player2Config = false;
+        }
     }
 }

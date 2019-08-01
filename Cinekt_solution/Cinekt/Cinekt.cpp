@@ -42,6 +42,10 @@ void main()
             pongGame(cap);
         }
 
-        cv::waitKey(16);
+        int input = cv::waitKey(16);
+        if (input == 32) {
+            std::cout << "Esc key is pressed by user. Stopping the video" << std::endl;
+            break;
+        }
     }
 }

@@ -71,7 +71,9 @@ void main()
     std::vector<std::vector<boxTypes>> box = inv.createStartTable();
     inv.setGameTable(box);
 
-    while (true) {
+    bool run = true;
+
+    while (run) {
        
         show = inv.creatGameTable();
         cv::imshow("show", show);

@@ -31,8 +31,9 @@ public:
     void creatBoxes(cv::Point point, int boxType);
     void creatProjectile();
 
-    void creatMovedPlayer(int &x);
-    void creatMovedProjectile();
+    void movedPlayer(int &x);
+    void movedProjectile();
+    void movedBoxes();
     
     void destroyProjectile();
     

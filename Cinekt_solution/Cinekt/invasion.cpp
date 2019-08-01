@@ -82,7 +82,7 @@ void Invasion::creatBoxes(cv::Point point, int boxType)
 
 }
 
-void Invasion::creatMovedPlayer(int &x)
+void Invasion::movedPlayer(int &x)
 {
     _gameTable[19][_playerX - 1] = BLANK;
     _gameTable[19][_playerX] = BLANK;
@@ -102,7 +102,7 @@ void Invasion::creatMovedPlayer(int &x)
     _gameTable[19][newPosition + 1] = PLAYER;
 }
 
-void Invasion::creatMovedProjectile()
+void Invasion::movedProjectile()
 {
     for (int i = 0; i < _projectilePoint.size(); i ++) {
         _gameTable[_projectilePoint[i][0]][_projectilePoint[i][1]] = BLANK;
@@ -126,6 +126,15 @@ void Invasion::creatMovedProjectile()
         }
         else {
             destroyProjectile();
+        }
+    }
+}
+
+void Invasion::movedBoxes()
+{
+    for (int i = 0; i < 20; i++) {
+        for (int j = 0; j < 20; j++) {
+            
         }
     }
 }

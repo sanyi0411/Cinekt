@@ -1,6 +1,6 @@
 #include "objectTracking.h"
 
-ColorParameters player1 = { 0,46,121,231,115,194 };
+ColorParameters player1 = { 100,255,255,231,115,194 };
 ColorParameters player2 = { 112,145,94,178,53,106 };
 
 cv::Point coord(cv::Mat frame, ColorParameters color)
@@ -36,4 +36,22 @@ cv::Point coord(cv::Mat frame, ColorParameters color)
         posY = dM01 / dArea;
     }
     return cv::Point(posX, posY);
+}
+
+void calibrateColors(int event, int x, int y, int flags, void *userdata)
+{
+    int hueThresh = 22;
+    int satThresh = 55;
+    int valThresh = 40;
+
+    cv::Mat img = *((cv::Mat *)userdata);
+    cv::Mat hsv;
+    cvtColor(img, hsv, cv::COLOR_BGR2HSV);
+
+    if (flags & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
+        cv::Vec3b pixel = hsv.at<cv::Vec3b>(y, x);
+        player1 = { std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
+            std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
+            std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh) };
+    }
 }

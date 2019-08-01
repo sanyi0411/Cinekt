@@ -26,6 +26,9 @@ void main()
     int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
     int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 
+    cv::namedWindow("Cinekt");
+    cv::setMouseCallback("Cinekt", calibrateColors, &frame);
+
     while (true) {
         cap >> frame;
         cv::flip(frame, frame, +1);

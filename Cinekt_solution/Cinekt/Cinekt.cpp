@@ -5,6 +5,7 @@
 #include <mmsystem.h>
 #pragma comment(lib, "WinMM.Lib")
 #include "objectTracking.h"
+#include "pongGame.h"
 
 void main()
 {
@@ -28,14 +29,14 @@ void main()
     while (true) {
         cap >> frame;
         cv::flip(frame, frame, +1);
-        cv::Point point1 = coord(frame, palyer1);
-        cv::Point point2 = coord(frame, palyer2);
+        cv::Point point1 = coord(frame, player1);
+        cv::Point point2 = coord(frame, player2);
         cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
         cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
-        cv::imshow("R", frame);
+        cv::imshow("Cinekt", frame);
 
         if (point1.x < width * 0.25 && point1.y < height * 0.25) {
-            std::cout << "Hello World" << std::endl;
+            pongGame(cap);
         }
 
         cv::waitKey(16);

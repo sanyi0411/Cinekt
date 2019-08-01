@@ -12,8 +12,8 @@ struct ColorParameters {
     int valueHigh;
 };
 
-extern ColorParameters palyer1;
-extern ColorParameters palyer2;
+extern ColorParameters player1;
+extern ColorParameters player2;
 
 cv::Point coord(cv::Mat, ColorParameters color);
 

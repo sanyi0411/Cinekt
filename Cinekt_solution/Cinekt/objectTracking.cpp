@@ -1,12 +1,12 @@
 #include "objectTracking.h"
 
-ColorParameters palyer1 = { 0,38,151,225,52,153 };
-ColorParameters palyer2 = { 144,179,115,197,85,161 };
+ColorParameters player1 = { 0,46,121,231,115,194 };
+ColorParameters player2 = { 112,145,94,178,53,106 };
 
 cv::Point coord(cv::Mat frame, ColorParameters color)
 {
-    int posX = 0;
-    int posY = 0;
+    int posX = 400;
+    int posY = 400;
 
     cv::Mat imgHSV;
     cvtColor(frame, imgHSV, cv::COLOR_BGR2HSV);
@@ -30,7 +30,7 @@ cv::Point coord(cv::Mat frame, ColorParameters color)
     double dArea = oMoments.m00;
 
     // if the area <= 10000, I consider that the there are no object in the image and it's because of the noise, the area is not zero 
-    if (dArea > 10000) {
+    if (dArea > 25000) {
         //calculate the position of the ball
         posX = dM10 / dArea;
         posY = dM01 / dArea;

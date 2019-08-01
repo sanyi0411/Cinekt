@@ -132,11 +132,22 @@ void Invasion::movedProjectile()
 
 void Invasion::movedBoxes()
 {
+    std::vector<std::vector<boxTypes>> newGameTable;
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 20; j++) {
-            
+            if (i == 0) {
+                newGameTable[i][j] = BLANK;
+            }else if (_gameTable[i][j] == PROJECTILE) {
+                break;
+            }else if (_gameTable[i][j] == PLAYER) {
+                break;
+            }else {
+                
+            }
+
         }
     }
+    setGameTable(newGameTable);
 }
 
 void Invasion::destroyProjectile()

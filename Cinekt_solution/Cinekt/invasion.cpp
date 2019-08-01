@@ -15,7 +15,7 @@ Invasion::~Invasion()
 
 std::vector<std::vector<boxTypes>> Invasion::createStartTable()
 {
-    std::vector<std::vector<boxTypes>> startTable;
+    std::vector<std::vector<boxTypes>> startTable(21);
 
     for (int i = 0; i < 21; i++) {
         for (int j = 0; j < 20; j++) {

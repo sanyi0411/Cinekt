@@ -40,13 +40,13 @@ void main()
 
         cv::waitKey(16);
     }*/
-    /*
+    
     Invasion inv(cap);
     std::vector<std::vector<boxTypes>> box = inv.createStartTable();
     cv::Mat show;
     show = inv.creatGameTable(box);
     cv::imshow("show", show);
-    cv::waitKey(0);*/
+    cv::waitKey(0);
 
 
 }

@@ -23,12 +23,7 @@ void MouseCallBackFunc(int event, int x, int y, int flag, void *userdata)
     }
 
     if(flag & cv::MouseEventFlags::EVENT_FLAG_RBUTTON) {
-        int posX = x;
-        int posY = 400 - 40;
-        int rectWidth = 20;
-        cv::Rect rect(posX, posY, rectWidth, rectWidth);
-        cv::rectangle(show, rect, cv::Scalar(255, 0, 255), -1);
-        cv::imshow("show", show);
+        inv.creatProjectile();
     }
 }
 

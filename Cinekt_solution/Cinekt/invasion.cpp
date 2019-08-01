@@ -104,5 +104,5 @@ void Invasion::creatMovedPlayer(int &x)
 
 void Invasion::creatProjectile()
 {
-
+    _gameTable[18][_playerX] = PROJECTILE;
 }

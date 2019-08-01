@@ -1,47 +1,22 @@
 #include "pongGame.h"
 #include "objectTracking.h"
-#include "windows.h"
 
 
-struct Ball {
-    int xPos;
-    int yPos;
-    double xSpeed;
-    double ySpeed;
-};
+PongGame::PongGame(cv::VideoCapture webcam)
+{
+    this->webcam = webcam;
+}
 
-struct Paddle {
-    int xPos;
-    int yPos;
-};
-
-static int paddleLenght;
-static int paddleWidth = 10;
-static int ballSize = 20;
-int win_cond = 3;
-Ball ball;
-Paddle paddle1;
-Paddle paddle2;
-int width;
-int height;
-int player1Score = 0;
-int player2Score = 0;
-std::vector<cv::Mat> screenshots;
-
-void moveBall(cv::Mat screen);
-void collision(cv::Mat screen);
-Ball resetBall();
-void drawScore(cv::Mat screen);
-void drawPaddle(cv::Mat screen, Paddle paddle);
-void slideShow();
-
-void pongGame(cv::VideoCapture webcam)
+void PongGame::pongGame()
 {
     srand(time(0));
     cv::Mat frame;
     width = webcam.get(cv::CAP_PROP_FRAME_WIDTH);
     height = webcam.get(cv::CAP_PROP_FRAME_HEIGHT);
     paddleLenght = height / 5;
+    player1Score = 0;
+    player2Score = 0;
+    screenshots.clear();
 
     ball = resetBall();
     paddle1 = { 25, height / 2};
@@ -71,17 +46,18 @@ void pongGame(cv::VideoCapture webcam)
 
         cv::waitKey(5);
     }
+    std::cout << "slideshow\n";
     slideShow();
 }
 
-void moveBall(cv::Mat screen)
+void PongGame::moveBall(cv::Mat screen)
 {
     ball.xPos += ball.xSpeed;
     ball.yPos += ball.ySpeed;
     collision(screen);
 }
 
-void collision(cv::Mat screen)
+void PongGame::collision(cv::Mat screen)
 {
     if (ball.xPos - ballSize <= paddle1.xPos + paddleWidth / 2) {
         if (ball.yPos >= paddle1.yPos - paddleLenght / 2 && ball.yPos <= paddle1.yPos + paddleLenght / 2) {
@@ -105,33 +81,31 @@ void collision(cv::Mat screen)
         ball.ySpeed *= -1;
 }
 
-void drawPaddle(cv::Mat screen, Paddle paddle)
+void PongGame::drawPaddle(cv::Mat screen, Paddle paddle)
 {
     cv::Rect rect(paddle.xPos - paddleWidth / 2, paddle.yPos - paddleLenght / 2, paddleWidth, paddleLenght);
     cv::rectangle(screen, rect, cv::Scalar(255, 255, 255), -1);
 }
 
-Ball resetBall()
+Ball PongGame::resetBall()
 {
-    int xSpeed = 5 + rand() % 10;
-    int ySpeed = 5 + rand() % 10;
+    int xSpeed = 8 + rand() % 8;
+    int ySpeed = 8 + rand() % 8;
     int direction = rand() % 2;
     Ball ball = { width / 2, height / 2, direction ? (xSpeed) : (-xSpeed),ySpeed };
     return ball;
 }
 
-void drawScore(cv::Mat screen)
+void PongGame::drawScore(cv::Mat screen)
 {
     cv::putText(screen, std::to_string(player1Score),cv::Point(20, height - 20), cv::FONT_HERSHEY_SIMPLEX, 4, CV_RGB(255, 0, 0), 5);
     cv::putText(screen, std::to_string(player2Score),cv::Point(width - 120, height - 20), cv::FONT_HERSHEY_SIMPLEX, 4, CV_RGB(255, 0, 0 ), 5);
 }
 
-void slideShow()
+void PongGame::slideShow()
 {
-    std::cout << screenshots.size();
     for (int i = 0; i < screenshots.size(); i++) {
         cv::imshow("Cinekt", screenshots[i]);
-        //cv::imwrite("scr" + std::to_string(i) + ".jpg", screenshots[i]);
-        Sleep(500);
+        cv::waitKey(1000);
     }
 }

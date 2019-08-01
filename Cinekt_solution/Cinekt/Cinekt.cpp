@@ -10,7 +10,7 @@
 void main()
 {
 
-    cv::VideoCapture cap(0);
+    cv::VideoCapture cap(0, cv::CAP_DSHOW);
 
     if (!cap.isOpened()) {
         std::cout << "Cannot open the web cam" << std::endl;
@@ -26,7 +26,7 @@ void main()
     int width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
     int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 
-    cv::namedWindow("Cinekt");
+    cv::namedWindow("Cinekt", cv::WINDOW_FULLSCREEN);
     cv::setMouseCallback("Cinekt", calibrateColors, &frame);
 
     while (true) {
@@ -39,7 +39,8 @@ void main()
         cv::imshow("Cinekt", frame);
 
         if (point1.x < width * 0.25 && point1.y < height * 0.25) {
-            pongGame(cap);
+            PongGame *game = new PongGame(cap);
+            game->pongGame();
         }
 
         int input = cv::waitKey(16);

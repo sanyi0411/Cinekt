@@ -39,15 +39,15 @@ cv::Mat Invasion::creatGameTable(std::vector<std::vector<boxTypes>> &gameTable)
     for (int i = 0; i < 20; i++) {
         for (int j = 0; j < 20; j++) {
             if (gameTable[i][j] == GREEN) {
-                int posX = i * 20;
-                int posY = j * 20;
+                int posX = j * 20;
+                int posY = i * 20;
                 int rectWidth = 20;
                 cv::Rect rect (posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(0, 255, 0), -1);
             }
             else if (gameTable[i][j] == PLAYER) {
-                int posX = i * 20;
-                int posY = j * 20;
+                int posX = j * 20;
+                int posY = i * 20;
                 int rectWidth = 20;
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(255, 255, 255), -1);

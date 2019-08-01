@@ -1,7 +1,7 @@
 #include "pongGame.h"
 #include "objectTracking.h"
 
-void pongGame(cv::VideoCapture webcam, int screenWidth, int screenHeight)
+void pongGame(cv::VideoCapture webcam)
 {
     cv::Mat frame;
 

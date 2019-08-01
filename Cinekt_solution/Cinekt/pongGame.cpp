@@ -132,8 +132,7 @@ void drawScore(cv::Mat screen)
 void slideShow()
 {
     for (int i = 0; i < screenshots.size(); i++) {
-        cv::imshow("ScreenShots", screenshots[i]);
+        cv::imshow("Cinekt", screenshots[i]);
         Sleep(1000);
     }
-    cv::destroyWindow("ScreenShots");
 }

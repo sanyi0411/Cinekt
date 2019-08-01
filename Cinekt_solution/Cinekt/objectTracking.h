@@ -12,6 +12,7 @@ struct ColorParameters {
     int valueHigh;
 };
 
+static bool player2Config = false;
 extern ColorParameters player1;
 extern ColorParameters player2;
 

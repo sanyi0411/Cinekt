@@ -232,7 +232,7 @@ void guessGamePlay(cv::VideoCapture cap)
 
         /*Calculate data for new question*/
         if (newQuestion) {
-            random = rand() % 24;
+            random = rand() % 26;
             newQuestion = false;
             int baseLine = 0;
             questionSize = cv::getTextSize(questions[random], cv::FONT_HERSHEY_TRIPLEX, 1.3, 1, &baseLine);

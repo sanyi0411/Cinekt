@@ -75,7 +75,7 @@ void Invasion::runGame()
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         clock_t fireClock = (clock() - fireBegin) / CLOCKS_PER_SEC;
-        if (projectileClock >= 0.2) {
+        if (projectileClock >= 0.01) {
             movedProjectile();
             projectileBegin = clock();
         }
@@ -88,7 +88,7 @@ void Invasion::runGame()
             boxBegin = clock();
         }
         saveFirePoints(fireY);
-        if (fireClock >= 0.2) {
+        if (fireClock >= 0.5) {
             if (fire()) {
                 creatProjectile();
             }
@@ -127,7 +127,7 @@ cv::Mat Invasion::creatGameTable()
             } else if (_gameTable[i][j] == PROJECTILE) {
                 int posX = j * RECTANGLE_PARAMETER;
                 int posY = i * RECTANGLE_PARAMETER;
-                int rectWidth = RECTANGLE_PARAMETER;
+                int rectWidth = RECTANGLE_PARAMETER / 3;
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(255, 0, 0), -1);
             } else if (_gameTable[i][j] == RED) {
@@ -317,8 +317,8 @@ void Invasion::saveFirePoints(int y)
 
 bool Invasion::fire()
 {
-    if (_fire[0] - _fire[1] > _height * 0.01) {
+    //if (_fire[0] - _fire[1] > _height * 0.01) {
         return true;
-    }
-    return false;
+    //}
+    //return false;
 }

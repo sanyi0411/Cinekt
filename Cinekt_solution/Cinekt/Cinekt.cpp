@@ -97,7 +97,6 @@ void main()
 
         if (point1.x >= 5 * width / 8 - (invadersSize.width / 2) - 7 && point1.x <= 5 * (width / 8) + (invadersSize.width / 2) + 13 &&
             point1.y >= welcomeSize.height + 5 + 3 * invadersSize.height && point1.y <= welcomeSize.height + 25 + 4 * invadersSize.height) {
-            //Call invaders game here
             Invasion game(cap);
             game.runGame();
         }

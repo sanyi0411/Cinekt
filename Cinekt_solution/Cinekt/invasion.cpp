@@ -99,8 +99,7 @@ void Invasion::runGame()
             std::cout << "Win" << std::endl;
         }*/
         game = creatGameTable();
-        cv::imshow("Cinekt", frame);
-        cv::imshow("Invasion", game);
+        cv::imshow("Cinekt", game);
         cv::waitKey(16);
     }
     _cap.release();
@@ -128,7 +127,7 @@ cv::Mat Invasion::creatGameTable()
             } else if (_gameTable[i][j] == PROJECTILE) {
                 int posX = j * RECTANGLE_PARAMETER + RECTANGLE_PARAMETER / 2;
                 int posY = i * RECTANGLE_PARAMETER + RECTANGLE_PARAMETER / 2;
-                int radius = RECTANGLE_PARAMETER * 0.1;
+                int radius = RECTANGLE_PARAMETER * 0.2;
                 cv::circle(gameTableMat, cv::Point(posX, posY), radius, cv::Scalar(255, 0, 0), -1);
                 
             } else if (_gameTable[i][j] == RED) {
@@ -153,9 +152,9 @@ void Invasion::creatBoxes()
 {
     for (int i = 0; i < TABLE_SIZE - 1; i++) {
         int randNumber = rand() % 10;
-        if(randNumber == 0) {
+        if(randNumber < 3) {
             _gameTable[0][i] = BLANK;
-        } else if (randNumber < 5) {
+        } else if (randNumber < 6) {
             _gameTable[0][i] = GREEN;
         } else if (randNumber < 8) {
             _gameTable[0][i] = YELLOW;

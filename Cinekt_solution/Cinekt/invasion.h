@@ -38,6 +38,9 @@ public:
     void creatBoxes(cv::Point point, int boxType);
     void creatProjectile();
 
+    void saveFirePoints(int y);
+    bool fire();
+
     void movedPlayer(int x);
     void movedProjectile();
     void movedBoxes();
@@ -52,6 +55,7 @@ private:
     int _width;
     int _height;
     int _playerX = TABLE_SIZE / 2;
+    std::vector<int> _fire = {0, 0};
     std::vector<std::vector<int>> _projectilePoint;
     bool _run = true;
 };

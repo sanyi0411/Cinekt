@@ -55,6 +55,8 @@ void Invasion::runGame()
 
     clock_t projectileBegin = clock();
     clock_t boxBegin = clock();
+    clock_t fireBegin = clock();
+
 
     while (_run) {
         
@@ -68,10 +70,13 @@ void Invasion::runGame()
         int point1X = point1.x;
         movedPlayer(point1X);
         cv::Point point2 = coord(frame, player2);
+        int fireY = point2.y;
+
         
         
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
+        clock_t fireClock = (clock() - fireBegin) / CLOCKS_PER_SEC;
         if (projectileClock >= 0.2) {
             movedProjectile();
             projectileBegin = clock();
@@ -79,6 +84,12 @@ void Invasion::runGame()
         if (boxClock >= 3.0) {
             movedBoxes();
             boxBegin = clock();
+        }
+        if (fireClock >= 0.1) {
+            saveFirePoints(fireY);
+            if (fire()) {
+                creatProjectile();
+            }
         }
         game = creatGameTable();
         cv::imshow("Cinekt", frame);
@@ -259,7 +270,24 @@ void Invasion::gameOver()
 
 void Invasion::creatProjectile()
 {
-    _gameTable[18][_playerX] = PROJECTILE;
+    _gameTable[TABLE_SIZE - 3][_playerX] = PROJECTILE;
     std::vector<int> point = { TABLE_SIZE - 3, _playerX };
     _projectilePoint.push_back(point);
+}
+
+void Invasion::saveFirePoints(int y)
+{
+    _fire.push_back(y);
+    if (_fire.size() > 2) {
+        auto it = _fire.begin();
+        _fire.erase(it);
+    }
+}
+
+bool Invasion::fire()
+{
+    if (_fire[0] - _fire[1] > _height * 0.1) {
+        return true;
+    }
+    return false;
 }

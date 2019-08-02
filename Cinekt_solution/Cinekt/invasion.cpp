@@ -75,7 +75,7 @@ void Invasion::runGame()
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         clock_t fireClock = (clock() - fireBegin) / CLOCKS_PER_SEC;
-        if (projectileClock >= 0.1) {
+        if (projectileClock >= 0.05) {
             movedProjectile();
             projectileBegin = clock();
         }
@@ -88,7 +88,7 @@ void Invasion::runGame()
             boxBegin = clock();
         }
         saveFirePoints(fireY);
-        if (fireClock >= 0.2) {
+        if (fireClock >= 0.1) {
             if (fire()) {
                 creatProjectile();
             }

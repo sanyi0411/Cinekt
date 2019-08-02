@@ -49,6 +49,7 @@ public:
     void destroyProjectile();
     void destroyProjectileWithCollision(int position);
     void gameOver();
+    bool win();
     
 private:
     std::vector<std::vector<boxTypes>> _gameTable;

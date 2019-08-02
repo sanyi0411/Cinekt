@@ -42,7 +42,7 @@ void main()
             pongGame(cap);
         }
 
-        if (point1.x > width * 0.75 && point1.y < height * 0.25) {
+        if (point1.x < width * 0.25 && point1.y > height * 0.75) {
             Invasion invasion(cap);
             invasion.runGame();
         }

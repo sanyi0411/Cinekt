@@ -72,8 +72,6 @@ void Invasion::runGame()
         cv::Point point2 = coord(frame, player2);
         int fireY = point2.y;
 
-        
-        
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         clock_t fireClock = (clock() - fireBegin) / CLOCKS_PER_SEC;
@@ -81,7 +79,7 @@ void Invasion::runGame()
             movedProjectile();
             projectileBegin = clock();
         }
-        if (boxClock >= 2.0) {
+        if (boxClock >= 2.5) {
             movedBoxes();
             if (amountOfLine != AMOUNT_OF_LINE) {
                 creatBoxes();
@@ -94,6 +92,10 @@ void Invasion::runGame()
             if (fire()) {
                 creatProjectile();
             }
+        }
+        if (win()) {
+            _run = false;
+            std::cout << "Win" << std::endl;
         }
         game = creatGameTable();
         cv::imshow("Cinekt", frame);
@@ -251,6 +253,7 @@ void Invasion::movedBoxes()
                 } else if (_gameTable[i + 1][j] == PLAYER) {
                     if (_gameTable[i][j] == RED || _gameTable[i][j] == YELLOW || _gameTable[i][j] == GREEN) {
                         gameOver();
+                        break;
                     }
                 } else {
                     newGameTable[i + 1][j] = _gameTable[i][j];
@@ -281,6 +284,19 @@ void Invasion::destroyProjectileWithCollision(int position)
 void Invasion::gameOver()
 {
     _run = false;
+    std::cout << "Lost" << std::endl;
+}
+
+bool Invasion::win()
+{
+    for (int i = 0; i < TABLE_SIZE - 1; i++) {
+        for (int j = 0; j < TABLE_SIZE - 1; i++) {
+            if (_gameTable[i][j] == RED  || _gameTable[i][j] == YELLOW || _gameTable[i][j] == GREEN) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 void Invasion::creatProjectile()

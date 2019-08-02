@@ -101,7 +101,7 @@ void Invasion::runGame()
         game = creatGameTable();
         cv::imshow("Cinekt", frame);
         cv::imshow("Invasion", game);
-        cv::waitKey(8);
+        cv::waitKey(16);
     }
     _cap.release();
     cv::destroyAllWindows();

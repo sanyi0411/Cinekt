@@ -34,9 +34,7 @@ void Invasion::createStartTable()
 
     for (int i = 0; i < TABLE_SIZE; i++) {
         for (int j = 0; j < TABLE_SIZE - 1; j++) {
-            if (i == 0) {
-                startTable[i].push_back(RED);
-            } else if (i > TABLE_SIZE - 2 || i == TABLE_SIZE - 2 && j >= TABLE_SIZE / 2 - 1 && j <= TABLE_SIZE / 2 + 1) {
+            if (i > TABLE_SIZE - 2 || i == TABLE_SIZE - 2 && j >= TABLE_SIZE / 2 - 1 && j <= TABLE_SIZE / 2 + 1) {
                 startTable[i].push_back(PLAYER);
             } else {
                 startTable[i].push_back(BLANK);
@@ -57,11 +55,13 @@ void Invasion::runGame()
     clock_t boxBegin = clock();
     clock_t fireBegin = clock();
 
+    creatBoxes();
+    int amountOfLine = 0;
 
     while (_run) {
         
         _cap >> frame;
-
+        srand(time(NULL));
         // Mirroring webcam image horizontally
         cv::flip(frame, frame, +1);
 
@@ -81,8 +81,12 @@ void Invasion::runGame()
             movedProjectile();
             projectileBegin = clock();
         }
-        if (boxClock >= 3.0) {
+        if (boxClock >= 2.0) {
             movedBoxes();
+            if (amountOfLine != AMOUNT_OF_LINE) {
+                creatBoxes();
+                amountOfLine++;
+            }
             boxBegin = clock();
         }
         saveFirePoints(fireY);
@@ -142,9 +146,20 @@ cv::Mat Invasion::creatGameTable()
     return gameTableMat;
 }
 
-void Invasion::creatBoxes(cv::Point point, int boxType)
+void Invasion::creatBoxes()
 {
-
+    for (int i = 0; i < TABLE_SIZE - 1; i++) {
+        int randNumber = rand() % 10;
+        if(randNumber == 0) {
+            _gameTable[0][i] = BLANK;
+        } else if (randNumber < 5) {
+            _gameTable[0][i] = GREEN;
+        } else if (randNumber < 8) {
+            _gameTable[0][i] = YELLOW;
+        } else if (randNumber < 10) {
+            _gameTable[0][i] = RED;
+        }
+    }
 }
 
 void Invasion::movedPlayer(int x)

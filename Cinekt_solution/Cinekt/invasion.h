@@ -9,6 +9,7 @@
 #define TABLE_SIZE 19
 #define RECTANGLE_PARAMETER 30
 #define WINDOW_PARAMETER 540
+#define AMOUNT_OF_LINE 10
 
 enum boxTypes {
     BLANK,
@@ -35,7 +36,7 @@ public:
     void runGame();
 
     cv::Mat creatGameTable();
-    void creatBoxes(cv::Point point, int boxType);
+    void creatBoxes();
     void creatProjectile();
 
     void saveFirePoints(int y);

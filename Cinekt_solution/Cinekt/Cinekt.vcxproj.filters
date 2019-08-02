@@ -21,12 +21,18 @@
     <ClInclude Include="pongGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="guessGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cinekt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="objectTracking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="guessGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pongGame.cpp">

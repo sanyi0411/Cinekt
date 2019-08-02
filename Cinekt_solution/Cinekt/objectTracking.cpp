@@ -1,7 +1,7 @@
 #include "objectTracking.h"
 
-ColorParameters player1 = { 255,179,156,226,97,255 };
-ColorParameters player2 = { 255,179,150,252,149,255 };
+ColorParameters player1 = { 14,42,98,174,75,175 };
+ColorParameters player2 = { 148,179,113,178,59,138 };
 
 cv::Point coord(cv::Mat frame, ColorParameters color)
 {

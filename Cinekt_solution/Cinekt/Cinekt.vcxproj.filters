@@ -24,6 +24,9 @@
     <ClInclude Include="guessGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wallBreakerGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cinekt.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pongGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wallBreakerGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

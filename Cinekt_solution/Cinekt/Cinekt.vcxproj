@@ -158,12 +158,14 @@
     <ClInclude Include="guessGame.h" />
     <ClInclude Include="objectTracking.h" />
     <ClInclude Include="pongGame.h" />
+    <ClInclude Include="wallBreakerGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cinekt.cpp" />
     <ClCompile Include="guessGame.cpp" />
     <ClCompile Include="objectTracking.cpp" />
     <ClCompile Include="pongGame.cpp" />
+    <ClCompile Include="wallBreakerGame.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

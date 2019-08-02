@@ -85,8 +85,8 @@ void Invasion::runGame()
             movedBoxes();
             boxBegin = clock();
         }
+        saveFirePoints(fireY);
         if (fireClock >= 0.1) {
-            saveFirePoints(fireY);
             if (fire()) {
                 creatProjectile();
             }

@@ -75,7 +75,7 @@ void Invasion::runGame()
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         clock_t fireClock = (clock() - fireBegin) / CLOCKS_PER_SEC;
-        if (projectileClock >= 0.05) {
+        if (projectileClock >= 0.1) {
             movedProjectile();
             projectileBegin = clock();
         }
@@ -100,10 +100,12 @@ void Invasion::runGame()
         }*/
         game = creatGameTable();
         cv::imshow("Cinekt", game);
-        cv::waitKey(16);
+        int input = cv::waitKey(16);
+        if (input == 27) {
+            std::cout << "Esc key is pressed by user. Stopping the video" << std::endl;
+            break;
+        }
     }
-    _cap.release();
-    cv::destroyAllWindows();
 }
 
 cv::Mat Invasion::creatGameTable()
@@ -152,11 +154,11 @@ void Invasion::creatBoxes()
 {
     for (int i = 0; i < TABLE_SIZE - 1; i++) {
         int randNumber = rand() % 10;
-        if(randNumber < 3) {
+        if(randNumber < 5) {
             _gameTable[0][i] = BLANK;
-        } else if (randNumber < 6) {
+        } else if (randNumber < 7) {
             _gameTable[0][i] = GREEN;
-        } else if (randNumber < 8) {
+        } else if (randNumber < 9) {
             _gameTable[0][i] = YELLOW;
         } else if (randNumber < 10) {
             _gameTable[0][i] = RED;
@@ -253,7 +255,7 @@ void Invasion::movedBoxes()
                 } else if (_gameTable[i + 1][j] == PLAYER) {
                     if (_gameTable[i][j] == RED || _gameTable[i][j] == YELLOW || _gameTable[i][j] == GREEN) {
                         gameOver();
-                        break;
+                        return;
                     }
                 } else {
                     newGameTable[i + 1][j] = _gameTable[i][j];

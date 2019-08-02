@@ -10,13 +10,17 @@
 #include "invasion.h"
 #include "pongGame.h"
 #include "guessGame.h"
+<<<<<<< HEAD
 #include "dinoGame.h"
+=======
+#include "wallBreakerGame.h"
+>>>>>>> 930ff6f88540dd3a99c8d5c2df939ce16fc0e59a
 
 void main()
 {
     srand(time(NULL));
     cv::VideoCapture cap(0);
-    
+
     if (!cap.isOpened()) {
         std::cout << "Cannot open the web cam" << std::endl;
         return;
@@ -99,7 +103,6 @@ void main()
 
         if (point1.x >= 5 * width / 8 - (invadersSize.width / 2) - 7 && point1.x <= 5 * (width / 8) + (invadersSize.width / 2) + 13 &&
             point1.y >= welcomeSize.height + 5 + 3 * invadersSize.height && point1.y <= welcomeSize.height + 25 + 4 * invadersSize.height) {
-            //Call invaders game here
             Invasion game(cap);
             game.runGame();
         }
@@ -111,10 +114,12 @@ void main()
 
         if (point1.x >= width / 2 - (wallBreakerSize.width / 2) - 10 && point1.x <= width / 2 + (wallBreakerSize.width / 2) + 13 &&
             point1.y >= height - 3 * wallBreakerSize.height - 10 && point1.y <= height - 2 * wallBreakerSize.height + 10) {
-            //Call wallbreaker game here
+            WallBreakerGame *game = new WallBreakerGame(cap);
+            game->wallBreakerGame();
         }
 
-        if (point1.x < width * 0.25 && point1.y > height * 0.75) {
+        if (point1.x >= 5 * width / 8 - (invadersSize.width / 2) - 7 && point1.x <= 5 * (width / 8) + (invadersSize.width / 2) + 13 &&
+            point1.y >= welcomeSize.height + 5 + 3 * invadersSize.height && point1.y <= welcomeSize.height + 25 + 4 * invadersSize.height) {
             Invasion invasion(cap);
             invasion.runGame();
         }

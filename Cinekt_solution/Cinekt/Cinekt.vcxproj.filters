@@ -27,7 +27,11 @@
     <ClInclude Include="guessGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="dinoGame.h">
+=======
+    <ClInclude Include="wallBreakerGame.h">
+>>>>>>> 930ff6f88540dd3a99c8d5c2df939ce16fc0e59a
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +51,11 @@
     <ClCompile Include="pongGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="dinoGame.cpp">
+=======
+    <ClCompile Include="wallBreakerGame.cpp">
+>>>>>>> 930ff6f88540dd3a99c8d5c2df939ce16fc0e59a
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

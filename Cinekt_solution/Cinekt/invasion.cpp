@@ -30,18 +30,13 @@ void Invasion::setPlayerX(int playerX)
 
 void Invasion::createStartTable()
 {
-    std::vector<std::vector<boxTypes>> startTable(TABLE_SIZE);
-
     for (int i = 0; i < TABLE_SIZE; i++) {
+        std::vector<boxTypes> temp;
         for (int j = 0; j < TABLE_SIZE - 1; j++) {
-            if (i > TABLE_SIZE - 2 || i == TABLE_SIZE - 2 && j >= TABLE_SIZE / 2 - 1 && j <= TABLE_SIZE / 2 + 1) {
-                startTable[i].push_back(PLAYER);
-            } else {
-                startTable[i].push_back(BLANK);
-            }
+            temp.push_back(BLANK);
         }
+        _gameTable.push_back(temp);
     }
-    setGameTable(startTable);
 }
 
 void Invasion::runGame()
@@ -75,12 +70,16 @@ void Invasion::runGame()
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         clock_t fireClock = (clock() - fireBegin) / CLOCKS_PER_SEC;
-        if (projectileClock >= 0.05) {
+        if (projectileClock >= 0.1) {
             movedProjectile();
             projectileBegin = clock();
         }
         if (boxClock >= 2.5) {
             movedBoxes();
+            if(!_run) {
+                _cap.release();
+                break;
+            }
             if (amountOfLine != AMOUNT_OF_LINE) {
                 creatBoxes();
                 amountOfLine++;
@@ -99,12 +98,14 @@ void Invasion::runGame()
             std::cout << "Win" << std::endl;
         }*/
         game = creatGameTable();
-        cv::imshow("Cinekt", frame);
-        cv::imshow("Invasion", game);
-        cv::waitKey(16);
+        cv::imshow("Cinekt", game);
+        int input = cv::waitKey(16);
+        if (input == 27) {
+            std::cout << "Esc key is pressed by user. Stopping the video" << std::endl;
+            break;
+        }
     }
-    _cap.release();
-    cv::destroyAllWindows();
+    
 }
 
 cv::Mat Invasion::creatGameTable()
@@ -128,7 +129,7 @@ cv::Mat Invasion::creatGameTable()
             } else if (_gameTable[i][j] == PROJECTILE) {
                 int posX = j * RECTANGLE_PARAMETER + RECTANGLE_PARAMETER / 2;
                 int posY = i * RECTANGLE_PARAMETER + RECTANGLE_PARAMETER / 2;
-                int radius = RECTANGLE_PARAMETER * 0.1;
+                int radius = RECTANGLE_PARAMETER * 0.2;
                 cv::circle(gameTableMat, cv::Point(posX, posY), radius, cv::Scalar(255, 0, 0), -1);
                 
             } else if (_gameTable[i][j] == RED) {
@@ -153,11 +154,11 @@ void Invasion::creatBoxes()
 {
     for (int i = 0; i < TABLE_SIZE - 1; i++) {
         int randNumber = rand() % 10;
-        if(randNumber == 0) {
+        if(randNumber < 5) {
             _gameTable[0][i] = BLANK;
-        } else if (randNumber < 5) {
+        } else if (randNumber < 7) {
             _gameTable[0][i] = GREEN;
-        } else if (randNumber < 8) {
+        } else if (randNumber < 9) {
             _gameTable[0][i] = YELLOW;
         } else if (randNumber < 10) {
             _gameTable[0][i] = RED;
@@ -171,7 +172,7 @@ void Invasion::movedPlayer(int x)
     _gameTable[TABLE_SIZE - 2][_playerX - 1] = BLANK;
     _gameTable[TABLE_SIZE - 2][_playerX] = BLANK;
     _gameTable[TABLE_SIZE - 2][_playerX + 1] = BLANK;
-    int newPosition = recalculated / (TABLE_SIZE - 1);
+    int newPosition = recalculated / (TABLE_SIZE - 2);
     
     if(newPosition < 0) {
         newPosition = 0;
@@ -254,7 +255,7 @@ void Invasion::movedBoxes()
                 } else if (_gameTable[i + 1][j] == PLAYER) {
                     if (_gameTable[i][j] == RED || _gameTable[i][j] == YELLOW || _gameTable[i][j] == GREEN) {
                         gameOver();
-                        break;
+                        return;
                     }
                 } else {
                     newGameTable[i + 1][j] = _gameTable[i][j];

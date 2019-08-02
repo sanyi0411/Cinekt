@@ -1,5 +1,8 @@
 #include "guessGame.h"
 
+int guessGamePlayer1Score = 0;
+int guessGamePlayer2Score = 0;
+
 std::string questions[] = {
     /*0*/"ALU stands for...",
     /*1*/"CPU stands for...",
@@ -22,8 +25,11 @@ std::string questions[] = {
     /*18*/"Which of the following is an output device?",
     /*19*/"Which of the following is an output device?",
     /*20*/"Every Web page has a unique address called...",
-    /*21*/"A computer on the internet is indetified by..."
-    /*22*/
+    /*21*/"A computer on the internet is indetified by...",
+    /*22*/"A byte consists of _____ bits",
+    /*23*/"The base of the hexadecimal number system is ",
+    /*24*/"EEPROM is a type of _____ memory",
+    /*25*/"The processor fetches instruction from _____"
 };
 
 std::string answers[][3] = {
@@ -48,9 +54,11 @@ std::string answers[][3] = {
     /*18*/{"keyboard", "JoyStick", "monitor"},
     /*19*/{"bar code reader", "scanner", "headphones"},
     /*20*/{"RUL", "URL", "ARL"},
-    /*21*/{"IP address", "email address", "street address"}
-    /*22*/
-
+    /*21*/{"IP address", "email address", "street address"},
+    /*22*/{"8", "12", "16"},
+    /*23*/{"8", "10", "16"},
+    /*24*/{"Volatile", "Non-volatile", "Dynamic"},
+    /*25*/{"Memory", "ALU", "Control Unit"}
 };
 
 int rightAnswers[] = {
@@ -75,8 +83,11 @@ int rightAnswers[] = {
     /*18*/2,
     /*19*/2,
     /*20*/1,
-    /*21*/0
-
+    /*21*/0,
+    /*22*/0,
+    /*23*/2,
+    /*24*/1,
+    /*25*/0
 };
 
 void guessGameMenu(cv::VideoCapture cap)
@@ -166,13 +177,17 @@ void guessGameNewQuestionPreparation(cv::VideoCapture cap)
         cv::putText(frame, "Go to your corners!", cv::Point(width / 2 - (scoreTextSize.width / 2) + 3, height / 2 + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
         cv::putText(frame, "Go to your corners!", cv::Point(width / 2 - (scoreTextSize.width / 2), height / 2), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
 
-        cv::rectangle(frame, cv::Point(1, height - 121), cv::Point(121, height - 1), cv::Scalar(0, 0, 255), -1);
-        cv::rectangle(frame, cv::Point(width - 121, height - 121), cv::Point(width - 1, height - 1), cv::Scalar(255, 0, 0), -1);
-        
+        cv::rectangle(frame, cv::Point(1, height - 121), cv::Point(121, height - 1), cv::Scalar(0, 0, 255), 3);
+        cv::putText(frame, std::to_string(guessGamePlayer1Score), cv::Point(8, height - 7), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(0, 0, 0), 5);
+        cv::putText(frame, std::to_string(guessGamePlayer1Score), cv::Point(5, height - 10), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(255, 255, 255), 5);
+        cv::rectangle(frame, cv::Point(width - 121, height - 121), cv::Point(width - 1, height - 1), cv::Scalar(255, 0, 0), 3);
+        cv::putText(frame, std::to_string(guessGamePlayer2Score), cv::Point(width - 112, height - 7), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(0, 0, 0), 5);
+        cv::putText(frame, std::to_string(guessGamePlayer2Score), cv::Point(width - 115, height - 10), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(255, 255, 255), 5);
+
         if (point1.x < 151 && point1.y >(height - 151) && point2.x > (width - 151) && point2.y > (height - 151)) {
-            break;
+            return;
         }
-        
+
         cv::imshow("Cinekt", frame);
         if (cv::waitKey(16) == 27) {
             return;
@@ -217,7 +232,7 @@ void guessGamePlay(cv::VideoCapture cap)
 
         /*Calculate data for new question*/
         if (newQuestion) {
-            random = rand() % 22;
+            random = rand() % 26;
             newQuestion = false;
             int baseLine = 0;
             questionSize = cv::getTextSize(questions[random], cv::FONT_HERSHEY_TRIPLEX, 1.3, 1, &baseLine);
@@ -254,6 +269,14 @@ void guessGamePlay(cv::VideoCapture cap)
         cv::putText(frame, answers[random][2], cv::Point(answer2Position.x + 3, answer2Position.y + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
         cv::putText(frame, answers[random][2], cv::Point(answer2Position.x, answer2Position.y), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
 
+        /*Show scores*/
+        cv::rectangle(frame, cv::Point(1, height - 121), cv::Point(121, height - 1), cv::Scalar(0, 0, 255), 3);
+        cv::putText(frame, std::to_string(guessGamePlayer1Score), cv::Point(8, height - 7), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(0, 0, 0), 5);
+        cv::putText(frame, std::to_string(guessGamePlayer1Score), cv::Point(5, height - 10), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(255, 255, 255), 5);
+        cv::rectangle(frame, cv::Point(width - 121, height - 121), cv::Point(width - 1, height - 1), cv::Scalar(255, 0, 0), 3);
+        cv::putText(frame, std::to_string(guessGamePlayer2Score), cv::Point(width - 112, height - 7), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(0, 0, 0), 5);
+        cv::putText(frame, std::to_string(guessGamePlayer2Score), cv::Point(width - 115, height - 10), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(255, 255, 255), 5);
+
         /*Check winner*/
         cv::Point currentRightAnswerPosition = currentAnswerPositions[rightAnswers[random]];
         cv::Size currentRightAnswerSize = currentAnswerSizes[rightAnswers[random]];
@@ -263,6 +286,7 @@ void guessGamePlay(cv::VideoCapture cap)
             newQuestion = true;
             cv::Size scoreTextSize = cv::getTextSize("Player 1 scores!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
             cv::putText(frame, "Player 1 scores!", cv::Point(width / 2 - (scoreTextSize.width / 2), height - 20), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 255), 2, 8, false);
+            guessGamePlayer1Score++;
             cv::imshow("Cinekt", frame);
             cv::waitKey(1500);
         }
@@ -273,20 +297,24 @@ void guessGamePlay(cv::VideoCapture cap)
             cv::Size scoreTextSize = cv::getTextSize("Player 2 scores!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
             cv::putText(frame, "Player 2 scores!", cv::Point(width / 2 - (scoreTextSize.width / 2), height - 20), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 0, 0), 2, 8, false);
             cv::imshow("Cinekt", frame);
+            guessGamePlayer2Score++;
             cv::waitKey(1500);
         }
-        
+
+        if (guessGamePlayer1Score == 3 || guessGamePlayer2Score == 3) {
+            newQuestion = false;
+            return;
+        }
+
         if (newQuestion) {
             guessGameNewQuestionPreparation(cap);
         }
-        
 
         cv::imshow("Cinekt", frame);
 
         if (cv::waitKey(5) == 27) {
             return;
         }
-
     }
 }
 
@@ -296,32 +324,49 @@ void guessGameOver(cv::VideoCapture cap)
     int height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
 
     cv::Mat frame;
-    /*
+
     while (true) {
         cap >> frame;
         cv::flip(frame, frame, +1);
         cv::Point point1 = coord(frame, player1);
-        cv::Point point2 = coord(frame, player2);
         cv::circle(frame, point1, 20, cv::Scalar(0, 0, 255), -1);
-        cv::circle(frame, point2, 20, cv::Scalar(255, 0, 0), -1);
+
+        if (guessGamePlayer1Score == 3) {
+            cv::Size textSize = cv::getTextSize("Player 1 won!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+            cv::putText(frame, "Player 1 won!", cv::Point(width / 2 - (textSize.width / 2) + 3, 0.1 * height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
+            cv::putText(frame, "Player 1 won!", cv::Point(width / 2 - (textSize.width / 2), 0.1 * height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 255), 2, 8, false);
+        } else if (guessGamePlayer2Score == 2) {
+            cv::Size textSize = cv::getTextSize("Player 2 won!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+            cv::putText(frame, "Player 2 won!", cv::Point(width / 2 - (textSize.width / 2) + 3, 0.1 * height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
+            cv::putText(frame, "Player 2 won!", cv::Point(width / 2 - (textSize.width / 2), 0.1 * height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 0, 0), 2, 8, false);
+        }
+
+        cv::Size mainMenuSize = cv::getTextSize("Main Menu", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
+        cv::putText(frame, "Main Menu", cv::Point(width / 2 - (mainMenuSize.width / 2) + 3, height / 2 + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
+        cv::putText(frame, "Main Menu", cv::Point(width / 2 - (mainMenuSize.width / 2), height / 2), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
+        cv::rectangle(frame, cv::Point(width / 2 - (mainMenuSize.width / 2) - 7, height / 2 + 18), cv::Point(width / 2 + (mainMenuSize.width / 2) + 13, height / 2 - mainMenuSize.height - 12), cv::Scalar(0, 0, 0), 2);
+        cv::rectangle(frame, cv::Point(width / 2 - (mainMenuSize.width / 2) - 10, height / 2 + 15), cv::Point(width / 2 + (mainMenuSize.width / 2) + 10, height / 2 - mainMenuSize.height - 15), cv::Scalar(255, 255, 255), 2);
+
+        if (point1.x >= width / 2 - (mainMenuSize.width / 2) - 10 && point1.x <= width / 2 + (mainMenuSize.width / 2) + 10 &&
+            point1.y >= height / 2 - mainMenuSize.height - 12 && point1.y <= height / 2 + 15) {
+            guessGamePlayer1Score = 0;
+            guessGamePlayer2Score = 0;
+            return;
+        }
+
+        cv::imshow("Cinekt", frame);
+        if (cv::waitKey(16) == 27) {
+            guessGamePlayer1Score = 0;
+            guessGamePlayer2Score = 0;
+            return;
+        }
     }
-    */
 }
 
 void guessGame(cv::VideoCapture cap)
 {
-    while (true) {
-        guessGameMenu(cap);
-        guessGamePlay(cap);
-        guessGameOver(cap);
-
-
-
-        /*
-        if (cv::waitKey(16) == 27) {
-            return;
-        }
-        */
-        return;
-    }
+    guessGameMenu(cap);
+    guessGamePlay(cap);
+    guessGameOver(cap);
+    return;
 }

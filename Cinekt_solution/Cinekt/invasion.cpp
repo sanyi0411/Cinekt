@@ -96,6 +96,7 @@ void Invasion::runGame()
         cv::imshow("Invasion", game);
         cv::waitKey(16);
     }
+    _cap.release();
     cv::destroyAllWindows();
 }
 

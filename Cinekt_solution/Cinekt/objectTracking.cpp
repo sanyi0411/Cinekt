@@ -1,7 +1,7 @@
 #include "objectTracking.h"
 
-ColorParameters player1 = { 14,42,98,174,75,175 };
-ColorParameters player2 = { 148,179,113,178,59,138 };
+ColorParameters player1 = { 0,179,0,255,0,255 };
+ColorParameters player2 = { 0,179,0,255,0,255 };
 
 cv::Point coord(cv::Mat frame, ColorParameters color)
 {
@@ -72,13 +72,13 @@ void calibrateColors(int event, int x, int y, int flags, void *userdata)
         cv::minMaxLoc(hsv_channels[2], &minVal, &maxVal);
 
         if (!player2Config) {
-            player1 = { (int)maxHue - 20, (int)maxHue,
+            player1 = { (int)maxHue - 30, (int)maxHue,
                 (int)minSat, 255,
                 (int)minVal, 255 };
             std::cout << "red: " << maxHue - 20 << " " << maxHue << " " << minSat << " " << maxSat << " " << minVal << " " << maxVal << std::endl;
             player2Config = true;
         } else {
-            player2 = { (int)minHue - 20, (int)maxHue,
+            player2 = { (int)minHue - 30, (int)maxHue,
                 (int)minSat, 255,
                 (int)minVal, 255 };
             std::cout << "blue: " << maxHue - 20 << " " << maxHue << " " << minSat << " " << maxSat << " " << minVal << " " << maxVal << std::endl;

@@ -287,7 +287,7 @@ void Invasion::saveFirePoints(int y)
 
 bool Invasion::fire()
 {
-    if (_fire[0] - _fire[1] > _height * 0.1) {
+    if (_fire[0] - _fire[1] > _height * 0.01) {
         return true;
     }
     return false;

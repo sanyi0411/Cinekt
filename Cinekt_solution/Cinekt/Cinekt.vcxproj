@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="invasion.h" />
     <ClInclude Include="guessGame.h" />
     <ClInclude Include="objectTracking.h" />
     <ClInclude Include="pongGame.h" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cinekt.cpp" />
+    <ClCompile Include="invasion.cpp" />
     <ClCompile Include="guessGame.cpp" />
     <ClCompile Include="objectTracking.cpp" />
     <ClCompile Include="pongGame.cpp" />

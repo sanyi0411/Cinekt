@@ -64,7 +64,7 @@ void PongGame::moveBall(cv::Mat screen)
 void PongGame::collision(cv::Mat screen)
 {
     if (ball.xPos - ballSize <= paddle1.xPos + paddleWidth / 2) {
-        if (ball.yPos >= paddle1.yPos - paddleLenght / 2 && ball.yPos <= paddle1.yPos + paddleLenght / 2) {
+        if (ball.yPos + ballSize * 0.5 >= paddle1.yPos - paddleLenght / 2 && ball.yPos - ballSize * 0.5 <= paddle1.yPos + paddleLenght / 2) {
             ball.xSpeed *= -1.25;
         } else {
             screenshots.push_back(cv::Mat(screen.clone()));
@@ -73,7 +73,7 @@ void PongGame::collision(cv::Mat screen)
         }
     }
     if (ball.xPos + ballSize >= paddle2.xPos - paddleWidth / 2) {
-        if (ball.yPos >= paddle2.yPos - paddleLenght / 2 && ball.yPos <= paddle2.yPos + paddleLenght / 2) {
+        if (ball.yPos + ballSize * 0.5 >= paddle2.yPos - paddleLenght / 2 && ball.yPos - ballSize * 0.5 <= paddle2.yPos + paddleLenght / 2) {
             ball.xSpeed *= -1.25;
         } else {
             screenshots.push_back(screen.clone());

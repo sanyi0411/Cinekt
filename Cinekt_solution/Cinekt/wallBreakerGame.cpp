@@ -16,8 +16,8 @@ void WallBreakerGame::wallBreakerGame()
     paddleLenght = height / 5;
     rectWidth = width / 10;
 
-    ball = resetBall();
     paddle = { width / 2, height - 20 };
+    ball = resetBall();
 
 
     while (ballCount > 0 && !checkEnd()) {
@@ -74,7 +74,7 @@ void WallBreakerGame::collision(cv::Mat screen)
     }
 
     if (ball.yPos + ballSize >= paddle.yPos - paddleWidth / 2) {
-        if (ball.xPos >= paddle.xPos - paddleLenght / 2 && ball.xPos <= paddle.xPos + paddleLenght / 2) {
+        if (ball.xPos + ballSize * 0.5 >= paddle.xPos - paddleLenght / 2 && ball.xPos - ballSize * 0.5 <= paddle.xPos + paddleLenght / 2) {
             ball.ySpeed *= -1.25;
         } else {
             ball = resetBall();

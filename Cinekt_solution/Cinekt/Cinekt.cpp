@@ -4,11 +4,13 @@
 #include <opencv2/highgui.hpp>
 #include <Windows.h>
 #include <mmsystem.h>
+#include <WinUser.h>
 #pragma comment(lib, "WinMM.Lib")
 #include "objectTracking.h"
 #include "invasion.h"
 #include "pongGame.h"
 #include "guessGame.h"
+#include "dinoGame.h"
 
 void main()
 {
@@ -91,7 +93,8 @@ void main()
         if (point1.x >= 3 * (width / 8) - (dinoSize.width / 2) - 10 && point1.x <= 3 * (width / 8) + (dinoSize.width / 2) + 13 &&
             point1.y >= welcomeSize.height + 5 + 3 * dinoSize.height && point1.y <= welcomeSize.height + 25 + 4 * dinoSize.height) {
             std::cout << "Dino game" << std::endl;
-            //Call dino game here
+            DinoGame *game = new DinoGame(cap);
+            game->dinoGame();
         }
 
         if (point1.x >= 5 * width / 8 - (invadersSize.width / 2) - 7 && point1.x <= 5 * (width / 8) + (invadersSize.width / 2) + 13 &&

@@ -12,9 +12,10 @@ cv::Point coord(cv::Mat frame, ColorParameters color)
     cv::Mat temp;
     frame.convertTo(temp, CV_32FC3);
     cv::Mat result = (temp - cv::Scalar(128, 128, 128)) * 2 + cv::Scalar(128, 128, 128);
-    result.convertTo(result, CV_8UC3);
+    result.convertTo(result, CV_8UC3); 
 
     cv::Mat imgHSV;
+
     cvtColor(result, imgHSV, cv::COLOR_BGR2HSV);
 
     cv::Mat imgThresholded;

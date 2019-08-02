@@ -99,8 +99,7 @@ void Invasion::runGame()
             std::cout << "Win" << std::endl;
         }*/
         game = creatGameTable();
-        cv::imshow("Cinekt", frame);
-        cv::imshow("Invasion", game);
+        cv::imshow("Cinekt", game);
         cv::waitKey(16);
     }
     _cap.release();

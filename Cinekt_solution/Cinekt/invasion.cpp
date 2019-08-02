@@ -75,7 +75,7 @@ void Invasion::runGame()
         clock_t projectileClock = (clock() - projectileBegin) / CLOCKS_PER_SEC;
         clock_t boxClock = (clock() - boxBegin) / CLOCKS_PER_SEC;
         clock_t fireClock = (clock() - fireBegin) / CLOCKS_PER_SEC;
-        if (projectileClock >= 0.01) {
+        if (projectileClock >= 0.1) {
             movedProjectile();
             projectileBegin = clock();
         }
@@ -88,19 +88,20 @@ void Invasion::runGame()
             boxBegin = clock();
         }
         saveFirePoints(fireY);
-        if (fireClock >= 0.5) {
+        if (fireClock >= 0.2) {
             if (fire()) {
                 creatProjectile();
             }
+            fireBegin = clock();
         }
-        if (win()) {
+        /*if (win()) {
             _run = false;
             std::cout << "Win" << std::endl;
-        }
+        }*/
         game = creatGameTable();
         cv::imshow("Cinekt", frame);
         cv::imshow("Invasion", game);
-        cv::waitKey(16);
+        cv::waitKey(8);
     }
     _cap.release();
     cv::destroyAllWindows();
@@ -125,11 +126,11 @@ cv::Mat Invasion::creatGameTable()
                 cv::Rect rect(posX, posY, rectWidth, rectWidth);
                 cv::rectangle(gameTableMat, rect, cv::Scalar(255, 255, 255), -1);
             } else if (_gameTable[i][j] == PROJECTILE) {
-                int posX = j * RECTANGLE_PARAMETER;
-                int posY = i * RECTANGLE_PARAMETER;
-                int rectWidth = RECTANGLE_PARAMETER / 3;
-                cv::Rect rect(posX, posY, rectWidth, rectWidth);
-                cv::rectangle(gameTableMat, rect, cv::Scalar(255, 0, 0), -1);
+                int posX = j * RECTANGLE_PARAMETER + RECTANGLE_PARAMETER / 2;
+                int posY = i * RECTANGLE_PARAMETER + RECTANGLE_PARAMETER / 2;
+                int radius = RECTANGLE_PARAMETER * 0.1;
+                cv::circle(gameTableMat, cv::Point(posX, posY), radius, cv::Scalar(255, 0, 0), -1);
+                
             } else if (_gameTable[i][j] == RED) {
                 int posX = j * RECTANGLE_PARAMETER;
                 int posY = i * RECTANGLE_PARAMETER;

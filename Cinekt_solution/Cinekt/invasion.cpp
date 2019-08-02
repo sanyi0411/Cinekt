@@ -30,18 +30,13 @@ void Invasion::setPlayerX(int playerX)
 
 void Invasion::createStartTable()
 {
-    std::vector<std::vector<boxTypes>> startTable(TABLE_SIZE);
-
     for (int i = 0; i < TABLE_SIZE; i++) {
+        std::vector<boxTypes> temp;
         for (int j = 0; j < TABLE_SIZE - 1; j++) {
-            if (i > TABLE_SIZE - 2 || i == TABLE_SIZE - 2 && j >= TABLE_SIZE / 2 - 1 && j <= TABLE_SIZE / 2 + 1) {
-                startTable[i].push_back(PLAYER);
-            } else {
-                startTable[i].push_back(BLANK);
-            }
+            temp.push_back(BLANK);
         }
+        _gameTable.push_back(temp);
     }
-    setGameTable(startTable);
 }
 
 void Invasion::runGame()
@@ -81,6 +76,10 @@ void Invasion::runGame()
         }
         if (boxClock >= 2.5) {
             movedBoxes();
+            if(!_run) {
+                _cap.release();
+                break;
+            }
             if (amountOfLine != AMOUNT_OF_LINE) {
                 creatBoxes();
                 amountOfLine++;
@@ -106,6 +105,7 @@ void Invasion::runGame()
             break;
         }
     }
+    
 }
 
 cv::Mat Invasion::creatGameTable()
@@ -172,7 +172,7 @@ void Invasion::movedPlayer(int x)
     _gameTable[TABLE_SIZE - 2][_playerX - 1] = BLANK;
     _gameTable[TABLE_SIZE - 2][_playerX] = BLANK;
     _gameTable[TABLE_SIZE - 2][_playerX + 1] = BLANK;
-    int newPosition = recalculated / (TABLE_SIZE - 1);
+    int newPosition = recalculated / (TABLE_SIZE - 2);
     
     if(newPosition < 0) {
         newPosition = 0;

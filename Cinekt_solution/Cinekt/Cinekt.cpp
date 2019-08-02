@@ -10,11 +10,8 @@
 #include "invasion.h"
 #include "pongGame.h"
 #include "guessGame.h"
-<<<<<<< HEAD
 #include "dinoGame.h"
-=======
 #include "wallBreakerGame.h"
->>>>>>> 930ff6f88540dd3a99c8d5c2df939ce16fc0e59a
 
 void main()
 {

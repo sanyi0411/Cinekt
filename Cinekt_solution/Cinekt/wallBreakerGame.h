@@ -33,8 +33,6 @@ private:
     const int paddleWidth = 10;
     const int ballSize = 20;
     int rectWidth;
-    int yOffset = 30;
-    int xOffset;
     const int rectHeight = 30;
     WBBall ball;
     WBPaddle paddle;

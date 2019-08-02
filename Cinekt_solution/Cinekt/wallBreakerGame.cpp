@@ -14,14 +14,13 @@ void WallBreakerGame::wallBreakerGame()
     width = webcam.get(cv::CAP_PROP_FRAME_WIDTH);
     height = webcam.get(cv::CAP_PROP_FRAME_HEIGHT);
     paddleLenght = height / 5;
-    rectWidth = (width - 100) / 10;
-    xOffset = (width - 10 * rectWidth) / 2;
+    rectWidth = width / 10;
 
     ball = resetBall();
     paddle = { width / 2, height - 20 };
 
 
-    while (ballCount > 0 || !checkEnd()) {
+    while (ballCount > 0 && !checkEnd()) {
         webcam >> frame;
 
         // Mirroring webcam image horizontally
@@ -65,16 +64,11 @@ void WallBreakerGame::collision(cv::Mat screen)
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 10; j++) {
             if (bricks[i][j]) {
-                if (ball.ySpeed < 0 && ball.yPos - ballSize <= yOffset + (i + 1) * rectHeight)
-                    if (ball.xPos >= xOffset + j * rectWidth && ball.xPos <= xOffset + (j + 1) * rectWidth) {
+                if (ball.ySpeed < 0 && ball.yPos - ballSize <= (i + 1) * rectHeight)
+                    if (ball.xPos >= j * rectWidth && ball.xPos <= (j + 1) * rectWidth) {
                         bricks[i][j] = 0;
                         ball.ySpeed *= -1;
                     }
-                //if (ball.ySpeed > 0 && ball.yPos + ballSize >= yOffset + i * rectHeight)
-                //    if (ball.xPos >= xOffset + j * rectWidth && ball.xPos <= xOffset + (j + 1) * rectWidth) {
-                //        bricks[i][j] = 0;
-                //        ball.ySpeed *= -1;
-                //    }
             }
         }
     }
@@ -101,7 +95,7 @@ WBBall WallBreakerGame::resetBall()
 {
     int ySpeed = 8 + rand() % 8;
     int xSpeed = 8 + rand() % 8;
-    WBBall ball = { width / 2, height - 40, xSpeed ,-ySpeed };
+    WBBall ball = {paddle.xPos, height - 40, xSpeed ,-ySpeed };
     return ball;
 }
 
@@ -117,7 +111,7 @@ void WallBreakerGame::drawBricks(cv::Mat screen)
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 10; j++) {
             if (bricks[i][j]) {
-                rect = { xOffset + j * rectWidth, yOffset + i * rectHeight, rectWidth, rectHeight };
+                rect = {j * rectWidth,i * rectHeight, rectWidth, rectHeight };
                 switch (i) {
                     case 0:
                         cv::rectangle(screen, rect, cv::Scalar(255, 0, 0), 3);

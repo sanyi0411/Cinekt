@@ -56,8 +56,7 @@ void Invasion::runGame()
     clock_t projectileBegin = clock();
     clock_t boxBegin = clock();
 
-
-    while (gameOver()) {
+    while (_run) {
         
         _cap >> frame;
 
@@ -224,7 +223,7 @@ void Invasion::movedBoxes()
                     }
                 } else if (_gameTable[i + 1][j] == PLAYER) {
                     if (_gameTable[i][j] == RED || _gameTable[i][j] == YELLOW || _gameTable[i][j] == GREEN) {
-                        gameOver(false);
+                        gameOver();
                     }
                 } else {
                     newGameTable[i + 1][j] = _gameTable[i][j];
@@ -253,9 +252,9 @@ void Invasion::destroyProjectileWithCollision(int position)
     }
 }
 
-bool Invasion::gameOver(bool runGame)
+void Invasion::gameOver()
 {
-    return runGame;
+    _run = false;
 }
 
 void Invasion::creatProjectile()

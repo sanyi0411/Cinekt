@@ -44,7 +44,7 @@ public:
     
     void destroyProjectile();
     void destroyProjectileWithCollision(int position);
-    bool gameOver(bool runGame = true);
+    void gameOver();
     
 private:
     std::vector<std::vector<boxTypes>> _gameTable;
@@ -53,5 +53,6 @@ private:
     int _height;
     int _playerX = TABLE_SIZE / 2;
     std::vector<std::vector<int>> _projectilePoint;
+    bool _run = true;
 };
 

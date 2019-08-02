@@ -6,9 +6,9 @@
 #include <vector>
 #include <time.h>
 
-#define TABLE_SIZE 19
-#define RECTANGLE_PARAMETER 30
-#define WINDOW_PARAMETER 540
+#define TABLE_SIZE 16
+#define RECTANGLE_PARAMETER 40
+#define WINDOW_PARAMETER 600
 #define AMOUNT_OF_LINE 10
 
 enum boxTypes {

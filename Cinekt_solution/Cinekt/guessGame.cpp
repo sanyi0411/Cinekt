@@ -1,5 +1,8 @@
 #include "guessGame.h"
 
+int guessGamePlayer1Score = 0;
+int guessGamePlayer2Score = 0;
+
 std::string questions[] = {
     /*0*/"ALU stands for...",
     /*1*/"CPU stands for...",
@@ -166,8 +169,11 @@ void guessGameNewQuestionPreparation(cv::VideoCapture cap)
         cv::putText(frame, "Go to your corners!", cv::Point(width / 2 - (scoreTextSize.width / 2) + 3, height / 2 + 3), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2, 8, false);
         cv::putText(frame, "Go to your corners!", cv::Point(width / 2 - (scoreTextSize.width / 2), height / 2), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2, 8, false);
 
-        cv::rectangle(frame, cv::Point(1, height - 121), cv::Point(121, height - 1), cv::Scalar(0, 0, 255), -1);
-        cv::rectangle(frame, cv::Point(width - 121, height - 121), cv::Point(width - 1, height - 1), cv::Scalar(255, 0, 0), -1);
+        cv::rectangle(frame, cv::Point(1, height - 121), cv::Point(121, height - 1), cv::Scalar(0, 0, 255), 3);
+        cv::putText(frame, std::to_string(guessGamePlayer1Score), cv::Point(8, height - 7), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(0, 0, 0), 5);
+        cv::putText(frame, std::to_string(guessGamePlayer1Score), cv::Point(5, height - 10), cv::FONT_HERSHEY_TRIPLEX, 5, cv::Scalar(255, 255, 255), 5);
+        cv::rectangle(frame, cv::Point(width - 121, height - 121), cv::Point(width - 1, height - 1), cv::Scalar(255, 0, 0), 3);
+
         
         if (point1.x < 151 && point1.y >(height - 151) && point2.x > (width - 151) && point2.y > (height - 151)) {
             break;
@@ -263,6 +269,7 @@ void guessGamePlay(cv::VideoCapture cap)
             newQuestion = true;
             cv::Size scoreTextSize = cv::getTextSize("Player 1 scores!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
             cv::putText(frame, "Player 1 scores!", cv::Point(width / 2 - (scoreTextSize.width / 2), height - 20), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 255), 2, 8, false);
+            guessGamePlayer1Score++;
             cv::imshow("Cinekt", frame);
             cv::waitKey(1500);
         }
@@ -273,13 +280,13 @@ void guessGamePlay(cv::VideoCapture cap)
             cv::Size scoreTextSize = cv::getTextSize("Player 2 scores!", cv::FONT_HERSHEY_TRIPLEX, 2, 2, 0);
             cv::putText(frame, "Player 2 scores!", cv::Point(width / 2 - (scoreTextSize.width / 2), height - 20), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 0, 0), 2, 8, false);
             cv::imshow("Cinekt", frame);
+            guessGamePlayer2Score++;
             cv::waitKey(1500);
         }
         
         if (newQuestion) {
             guessGameNewQuestionPreparation(cap);
         }
-        
 
         cv::imshow("Cinekt", frame);
 

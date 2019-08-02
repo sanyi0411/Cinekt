@@ -54,8 +54,8 @@ void main()
 
         cv::putText(frame, "Dino", cv::Point(3 * (width / 8) - (dinoSize.width / 2) + 3, welcomeSize.height + 18 + 4 * dinoSize.height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2);
         cv::putText(frame, "Dino", cv::Point(3 * (width / 8) - (dinoSize.width / 2), welcomeSize.height + 15 + 4 * dinoSize.height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2);
-        cv::rectangle(frame, cv::Point(3 * (width / 8) - (dinoSize.width / 2) - 7, welcomeSize.height + 28 + 4 * dinoSize.height), cv::Point(3 * (width / 8) + (pongSize.width / 2) + 13, welcomeSize.height + 8 + 3 * dinoSize.height), cv::Scalar(0, 0, 0), 2);
-        cv::rectangle(frame, cv::Point(3 * (width / 8) - (dinoSize.width / 2) - 10, welcomeSize.height + 25 + 4 * dinoSize.height), cv::Point(3 * (width / 8) + (pongSize.width / 2) + 10, welcomeSize.height + 5 + 3 * dinoSize.height), cv::Scalar(255, 255, 255), 2);
+        cv::rectangle(frame, cv::Point(3 * (width / 8) - (dinoSize.width / 2) - 7, welcomeSize.height + 28 + 4 * dinoSize.height), cv::Point(3 * (width / 8) + (dinoSize.width / 2) + 13, welcomeSize.height + 8 + 3 * dinoSize.height), cv::Scalar(0, 0, 0), 2);
+        cv::rectangle(frame, cv::Point(3 * (width / 8) - (dinoSize.width / 2) - 10, welcomeSize.height + 25 + 4 * dinoSize.height), cv::Point(3 * (width / 8) + (dinoSize.width / 2) + 10, welcomeSize.height + 5 + 3 * dinoSize.height), cv::Scalar(255, 255, 255), 2);
 
         cv::putText(frame, "Invaders", cv::Point(5 * (width / 8) - (invadersSize.width / 2) + 3, welcomeSize.height + 18 + 4 * invadersSize.height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(0, 0, 0), 2);
         cv::putText(frame, "Invaders", cv::Point(5 * (width / 8) - (invadersSize.width / 2), welcomeSize.height + 15 + 4 * invadersSize.height), cv::FONT_HERSHEY_TRIPLEX, 2, cv::Scalar(255, 255, 255), 2);
@@ -81,24 +81,26 @@ void main()
         cv::imshow("Cinekt", frame);
 
         /*Choosing a game*/
-        if (point1.x >= 3 * (width / 8) - (dinoSize.width / 2) - 10 && point1.x <= 3 * (width / 8) + (pongSize.width / 2) + 10 &&
+        if (point1.x >= (width / 8) - (pongSize.width / 2) - 10 && point1.x <= (width / 8) + (pongSize.width / 2) + 10 &&
             point1.y >= welcomeSize.height + 5 + 3 * pongSize.height && point1.y <= welcomeSize.height + 25 + 4 * pongSize.height) {
             PongGame *game = new PongGame(cap);
             game->pongGame();
         }
 
-        if (point1.x >= 5 * (width / 8) - (invadersSize.width / 2) - 7 && point1.x <= width / 8 + (pongSize.width / 2) + 13 &&
-            point1.y >= welcomeSize.height + 5 + 3 * dinoSize.height && point1.y <= welcomeSize.height + 25 + 4 * pongSize.height) {
+        if (point1.x >= 3 * (width / 8) - (dinoSize.width / 2) - 10 && point1.x <= 3 * (width / 8) + (dinoSize.width / 2) + 13 &&
+            point1.y >= welcomeSize.height + 5 + 3 * dinoSize.height && point1.y <= welcomeSize.height + 25 + 4 * dinoSize.height) {
+            std::cout << "Dino game" << std::endl;
             //Call dino game here
         }
 
-        if (point1.x >= width / 8 - (pongSize.width / 2) - 7 && point1.x <= 5 * (width / 8) + (invadersSize.width / 2) + 13 &&
-            point1.y >= welcomeSize.height + 5 + 3 * dinoSize.height && point1.y <= welcomeSize.height + 25 + 4 * pongSize.height) {
+        if (point1.x >= 5 * width / 8 - (invadersSize.width / 2) - 7 && point1.x <= 5 * (width / 8) + (invadersSize.width / 2) + 13 &&
+            point1.y >= welcomeSize.height + 5 + 3 * invadersSize.height && point1.y <= welcomeSize.height + 25 + 4 * invadersSize.height) {
+            std::cout << "Invaders game" << std::endl;
             //Call invaders game here
         }
 
         if (point1.x >= 7 * (width / 8) - (guessSize.width / 2) - 7 && point1.x <= 7 * (width / 8) + (guessSize.width / 2) + 10 &&
-            point1.y >= welcomeSize.height + 5 + 3 * dinoSize.height && point1.y <= welcomeSize.height + 25 + 4 * pongSize.height) {
+            point1.y >= welcomeSize.height + 5 + 3 * guessSize.height && point1.y <= welcomeSize.height + 25 + 4 * guessSize.height) {
             guessGame(cap);
         }
 

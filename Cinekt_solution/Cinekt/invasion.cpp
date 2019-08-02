@@ -86,7 +86,7 @@ void Invasion::runGame()
             boxBegin = clock();
         }
         saveFirePoints(fireY);
-        if (fireClock >= 0.1) {
+        if (fireClock >= 0.2) {
             if (fire()) {
                 creatProjectile();
             }
@@ -248,7 +248,6 @@ void Invasion::movedBoxes()
 
 void Invasion::destroyProjectile()
 {
-    _gameTable[_projectilePoint[0][0]][_projectilePoint[0][1]] = BLANK;
     std::vector<std::vector<int>>::iterator it = _projectilePoint.begin();
     _projectilePoint.erase(it);
 }

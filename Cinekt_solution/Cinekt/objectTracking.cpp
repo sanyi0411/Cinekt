@@ -1,7 +1,7 @@
 #include "objectTracking.h"
 
-ColorParameters player1 = { 255,179,156,226,97,255 };
-ColorParameters player2 = { 255,179,150,252,149,255 };
+ColorParameters player1 = { 0,179,0,255,0,255 };
+ColorParameters player2 = { 0,179,0,255,0,255 };
 
 cv::Point coord(cv::Mat frame, ColorParameters color)
 {
@@ -46,8 +46,6 @@ cv::Point coord(cv::Mat frame, ColorParameters color)
 
 void calibrateColors(int event, int x, int y, int flags, void *userdata)
 {
-
-
     if (flags & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
         double minHue;
         double maxHue;
@@ -74,13 +72,13 @@ void calibrateColors(int event, int x, int y, int flags, void *userdata)
         cv::minMaxLoc(hsv_channels[2], &minVal, &maxVal);
 
         if (!player2Config) {
-            player1 = { (int)maxHue - 20, (int)maxHue,
+            player1 = { (int)maxHue - 30, (int)maxHue,
                 (int)minSat, 255,
                 (int)minVal, 255 };
             std::cout << "red: " << maxHue - 20 << " " << maxHue << " " << minSat << " " << maxSat << " " << minVal << " " << maxVal << std::endl;
             player2Config = true;
         } else {
-            player2 = { (int)minHue - 20, (int)maxHue,
+            player2 = { (int)minHue - 30, (int)maxHue,
                 (int)minSat, 255,
                 (int)minVal, 255 };
             std::cout << "blue: " << maxHue - 20 << " " << maxHue << " " << minSat << " " << maxSat << " " << minVal << " " << maxVal << std::endl;

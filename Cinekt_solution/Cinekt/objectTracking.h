@@ -19,4 +19,3 @@ extern ColorParameters player2;
 cv::Point coord(cv::Mat, ColorParameters color);
 
 void calibrateColors(int event, int x, int y, int flags, void *userdata);
-

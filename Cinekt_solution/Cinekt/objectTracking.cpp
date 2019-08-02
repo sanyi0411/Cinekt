@@ -1,15 +1,21 @@
 #include "objectTracking.h"
 
-ColorParameters player1 = { 48,124,10,209,43,125 };
-ColorParameters player2 = { 144,179,115,197,85,161 };
+ColorParameters player1 = { 255,179,156,226,97,255 };
+ColorParameters player2 = { 255,179,150,252,149,255 };
 
 cv::Point coord(cv::Mat frame, ColorParameters color)
 {
-    int posX = frame.cols / 2;
-    int posY = frame.rows / 2;
+    int posX = 400;
+    int posY = 400;
+
+    // Increase contrast
+    cv::Mat temp;
+    frame.convertTo(temp, CV_32FC3);
+    cv::Mat result = (temp - cv::Scalar(128, 128, 128)) * 2 + cv::Scalar(128, 128, 128);
+    result.convertTo(result, CV_8UC3);
 
     cv::Mat imgHSV;
-    cvtColor(frame, imgHSV, cv::COLOR_BGR2HSV);
+    cvtColor(result, imgHSV, cv::COLOR_BGR2HSV);
 
     cv::Mat imgThresholded;
     inRange(imgHSV, cv::Scalar(color.hueLow, color.saturationeLow, color.valueLow), cv::Scalar(color.hueHigh, color.saturationeHigh, color.valueHigh), imgThresholded);
@@ -40,25 +46,42 @@ cv::Point coord(cv::Mat frame, ColorParameters color)
 
 void calibrateColors(int event, int x, int y, int flags, void *userdata)
 {
-    int hueThresh = 22;
-    int satThresh = 55;
-    int valThresh = 40;
-
-    cv::Mat img = *((cv::Mat *)userdata);
-    cv::Mat hsv;
-    cvtColor(img, hsv, cv::COLOR_BGR2HSV);
-
     if (flags & cv::MouseEventFlags::EVENT_FLAG_LBUTTON) {
-        cv::Vec3b pixel = hsv.at<cv::Vec3b>(y, x);
+        double minHue;
+        double maxHue;
+        double minSat;
+        double maxSat;
+        double minVal;
+        double maxVal;
+
+        cv::Mat img = *((cv::Mat *)userdata);
+        cv::Mat hsv;
+
+        // Convert to HSV color space
+        cvtColor(img, hsv, cv::COLOR_BGR2HSV);
+
+        // Get click area
+        cv::Rect rect(x - 10, y - 10, 20, 20);
+        cv::Mat window(hsv, rect);
+
+        // Split channels
+        cv::Mat hsv_channels[3];
+        cv::split(window, hsv_channels);
+        cv::minMaxLoc(hsv_channels[0], &minHue, &maxHue);
+        cv::minMaxLoc(hsv_channels[1], &minSat, &maxSat);
+        cv::minMaxLoc(hsv_channels[2], &minVal, &maxVal);
+
         if (!player2Config) {
-            player1 = {std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
-                std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
-                std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh)};
+            player1 = { (int)maxHue - 20, (int)maxHue,
+                (int)minSat, 255,
+                (int)minVal, 255 };
+            std::cout << "red: " << maxHue - 20 << " " << maxHue << " " << minSat << " " << maxSat << " " << minVal << " " << maxVal << std::endl;
             player2Config = true;
         } else {
-            player2 = {std::max(0, pixel[0] - hueThresh), std::min(255, pixel[0] + hueThresh),
-                std::max(0, pixel[1] - satThresh), std::min(255, pixel[1] + satThresh),
-                std::max(0, pixel[2] - valThresh),std::min(255, pixel[2] + valThresh)};
+            player2 = { (int)minHue - 20, (int)maxHue,
+                (int)minSat, 255,
+                (int)minVal, 255 };
+            std::cout << "blue: " << maxHue - 20 << " " << maxHue << " " << minSat << " " << maxSat << " " << minVal << " " << maxVal << std::endl;
             player2Config = false;
         }
     }

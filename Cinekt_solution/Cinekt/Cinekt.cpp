@@ -6,6 +6,7 @@
 #include <mmsystem.h>
 #pragma comment(lib, "WinMM.Lib")
 #include "objectTracking.h"
+#include "pongGame.h"
 #include "guessGame.h"
 
 void main()
@@ -18,8 +19,8 @@ void main()
         return;
     }
 
-    cap.set(cv::CAP_PROP_FRAME_WIDTH, 2000);
-    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 2000);
+    cap.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
+    cap.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
 
     cv::Mat frame;
     cap >> frame;
@@ -51,11 +52,19 @@ void main()
         cv::imshow("Cinekt", frame);
 
         if (point1.x < width * 0.25 && point1.y < height * 0.25) {
-            guessGame(cap);
+			PongGame *game = new PongGame(cap);
+            game->pongGame();
         }
 
-        if (cv::waitKey(16) == 27) {
-            return;
+        if (point1.x > width * 0.75 && point1.y < height * 0.25) {
+        	guessGame(cap);
+        }
+
+        int input = cv::waitKey(16);
+        if (input == 32) {
+            std::cout << "Esc key is pressed by user. Stopping the video" << std::endl;
+            break;
+
         }
     }
 }

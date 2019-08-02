@@ -61,10 +61,9 @@ void main()
         }
 
         int input = cv::waitKey(16);
-        if (input == 32) {
+        if (input == 27) {
             std::cout << "Esc key is pressed by user. Stopping the video" << std::endl;
             break;
-
         }
     }
 }

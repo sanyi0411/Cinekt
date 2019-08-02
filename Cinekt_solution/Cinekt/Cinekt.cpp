@@ -9,12 +9,13 @@
 #include "invasion.h"
 #include "pongGame.h"
 #include "guessGame.h"
+#include "wallBreakerGame.h"
 
 void main()
 {
     srand(time(NULL));
     cv::VideoCapture cap(0);
-    
+
     if (!cap.isOpened()) {
         std::cout << "Cannot open the web cam" << std::endl;
         return;
@@ -108,7 +109,8 @@ void main()
 
         if (point1.x >= width / 2 - (wallBreakerSize.width / 2) - 10 && point1.x <= width / 2 + (wallBreakerSize.width / 2) + 13 &&
             point1.y >= height - 3 * wallBreakerSize.height - 10 && point1.y <= height - 2 * wallBreakerSize.height + 10) {
-            //Call wallbreaker game here
+            WallBreakerGame *game = new WallBreakerGame(cap);
+            game->wallBreakerGame();
         }
 
         if (point1.x < width * 0.25 && point1.y > height * 0.75) {

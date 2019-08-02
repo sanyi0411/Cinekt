@@ -44,7 +44,11 @@ void PongGame::pongGame()
 
         cv::imshow("Cinekt", frame);
 
-        cv::waitKey(5);
+        int input = cv::waitKey(5);
+        if (input == 27) {
+            std::cout << "Esc key is pressed by user. Stopping the video" << std::endl;
+            break;
+        }
     }
     std::cout << "slideshow\n";
     slideShow();
